@@ -9,25 +9,31 @@ class Templates:
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>K7</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
             </head>
             <body>
-                <p style="font-size:20px;font-style:monospace;">K7</p>
+                <p style="font-size:20px;font-family: 'Rubik', sans-serif;">K7</p>
                 <br><br>
                 <br>
                 <center>
-                    <div style="width:80%;border:1px  solid #000;padding:30px">Log in to the K7 Scientific Research Platform<br><br>
+                    <h2 style="font-family: 'Libre Franklin', sans-serif;">Bağımsız basın, bilim ve sanat platformu </h2>
+                    <p style="font-family: 'Libre Franklin', sans-serif;">K7'nin amacı her bir kullanıcısını doğru ve güvenilir bilgiye ulaştırmak; insanları eğitmek ve kültürlendirmektir. Her okuyucu K7'nin imkanlarını ücretsiz olarak kullanabilir.</p>
+                    <i style="font-family: 'Libre Franklin', sans-serif; font-size:10px">K7'de bir şey yayınlamadan önce gönderileriniz moderatörlerimiz tarafından incelenmektedir.</i>
                     
-                        <form method="post" action="here">
-                            <input type="email" placeholder="Enter email" name="email" style="width:80%;font-size:20px;"><br><br>
-                            <input type="password" placeholder="Enter Password..." name="password" style="width:80%;font-size:20px;">
-                            <br>
-                            <br>
-                            <button style="font-size:17px;">Login</button>
-                        
-                        </form>
-                    
-                    </div>
-                </cetner>
+                </center>
+                <br><br>
+                <center>
+                <h4 style="font-family: 'Yellowtail', cursive;font-size:25px">
+                    En büyük savaş, cahilliğe karşı yapılan savaştır.
+                </h4>
+                <img src="/static/mka.png" width="100">
+                </center>
             </body>
             </html>
 
