@@ -6,7 +6,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return templates.Templates.return_index()
+    return templates.Templates.return_index_tr()
 
+@app.route("/login")
+def login():
+	return templates.Templates.return_login_tr()
 
 app.run(debug=True)
