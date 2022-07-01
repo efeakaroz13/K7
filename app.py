@@ -7,7 +7,17 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return templates.Templates.return_index_tr()
+	username = request.cookies.get("username")
+	password = request.cookies.get("password")
+	if username == None:
+		return templates.Templates.return_index_tr()
+	else:
+		sign_in_stuff = auth.auth.sign_in(username,password)
+		if sign_in_stuff["login"] == True:
+			return templates.Templates.return_home_tr(username)
+		else:
+			return templates.Templates.return_index_tr()
+
 
 @app.route("/login",methods=["POST","GET"])
 def login():
@@ -17,6 +27,8 @@ def login():
 		the_val = auth.auth.sign_in(username,password)
 		if the_val["login"] == True:
 			response = make_response(redirect("/"))
+			response.set_cookie("username",username)
+			response.set_cookie("password",password)
 			return response
 		else:
 			return templates.Templates.return_login_err_tr()
