@@ -35,5 +35,10 @@ def login():
 
 
 	return templates.Templates.return_login_tr()
+@app.route("/logout")
+def logout():
+	response = make_response(redirect("/"))
+	response.set_cookie("username",max_age=0)
 
+	return response
 app.run(debug=True)

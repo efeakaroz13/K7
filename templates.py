@@ -39,8 +39,8 @@ class Templates:
 
 
                     <div style="height:100%; margin-left:30px;">
-                    <h2 style="font-family: 'Libre Franklin', sans-serif;">Bağımsız basın ve bilim paylaşım platformu </h2>
-                    <p style="font-family: 'Libre Franklin', sans-serif;width:60%;">K7'nin amacı her bir kullanıcısını doğru ve güvenilir bilgiye ulaştırmak; insanları eğitmek ve kültürlendirmektir. Her okuyucu K7'nin imkanlarını ücretsiz olarak kullanabilir.</p>
+                    <h2 style="font-family: 'Libre Franklin', sans-serif;">Bağımsız bilim kuruluşu </h2>
+                    <p style="font-family: 'Libre Franklin', sans-serif;width:60%;">K7'nin amacı insanları doğru ve güvenilir bilgiye ulaştırmak; insanları eğitmek ve kültürlendirmektir. Her okuyucu K7'nin imkanlarını ücretsiz olarak kullanabilir. K7 hakkında daha fazla bilgi için <a href="https://cetele.pythonanywhere.com/read/K7%20ve%20ama%C3%A7lar%C4%B1">buraya</a> gözatabilirsiniz</p>
                     <i style="font-family: 'Libre Franklin', sans-serif; font-size:10px">K7'de bir şey yayımlamadan önce gönderileriniz moderatörlerimiz tarafından incelenmektedir.</i>
                     </div>
 
@@ -221,7 +221,7 @@ class Templates:
                 />
             </head>
             <body>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - """+username+"""</p>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - """+username+"""<a style="font-size:10px;color:red;margin-left:10px;margin-bottom:4px" href="/logout">logout</a></p>
                 <br><br>
                 <br>
                 <center>
