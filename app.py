@@ -41,4 +41,10 @@ def logout():
 	response.set_cookie("username",max_age=0)
 
 	return response
+
+
+@app.route("/register")
+def register():
+	response = make_response(templates.Templates.return_register_tr())
+	return response
 app.run(debug=True)

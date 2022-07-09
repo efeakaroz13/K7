@@ -55,7 +55,7 @@ class Templates:
                 <div style="border:1px solid #000;border-radius:5px;padding:30px;width:70%;">
                     <h3></h3>
                     <button class="btn btn-dark" onclick="window.location.assign('/login')">Giriş Yap</button>
-                    <button class="btn btn-outline-dark">Kayıt Ol</button>
+                    <button class="btn btn-outline-dark" onclick="window.location.assign('/register')">Kayıt Ol</button>
                     <div style="transition:0.5s;margin-left:20px;"><br>
                     <h4 style="font-family: 'Parisienne', cursive;font-size:20px;transition:1s;">
                         En büyük savaş, cahilliğe karşı yapılan savaştır.
@@ -232,5 +232,69 @@ class Templates:
                     
             </body>
             </html>
+
+        """
+
+    def return_register_tr():
+        return"""
+
+
+            <!DOCTYPE html>
+            <html lang="tr">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>K7 - Kayıt ol</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                  rel="stylesheet"
+                />
+                <!-- Google Fonts -->
+                <link
+                  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                  rel="stylesheet"
+                />
+                <!-- MDB -->
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                  rel="stylesheet"
+                />
+            </head>
+            <body>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Kayıt ol</p>
+                <br><br>
+                <br>
+                <center>
+                <div class="card" style="width:80%; padding:30px">
+                    <div class="card-body>
+                        <h4 class="card-title" style="font-size:25px;text-align:left;margin-left:50px;">Üyelik başvurusu</h4><br><br>
+                        <form class="card-text" method="POST" action="">
+                            <input type="text" autocomplete="off" placeholder="Tam adınız" class="form-control" style="width:70%;"><br>
+                            <input type="text" autocomplete="off" placeholder="Doğum yılınız" class="form-control" style="width:70%;"><br>
+                            <input type="email" autocomplete="off" placeholder="E-mail" class="form-control"style="width:70%;"><br>
+                            <input type="text" autocomplete="off" placeholder="Yaşadığınız şehir" class="form-control" style="width:70%;"><br>
+                            <textarea  placeholder="Yetenekleriniz(hangi konu ile alakalı olduğu size kalmış)" class="form-control"></textarea><br>
+                            <button class="btn btn-primary">Onayla</button>
+                        </form>
+                    </div>
+                </div>
+                </center>
+
+
+                    
+            </body>
+            </html>
+
+
+
 
         """
