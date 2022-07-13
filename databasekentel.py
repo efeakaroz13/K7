@@ -118,7 +118,7 @@ class db:
 										pass
 		return {"projectname":projectname,"username":username,"password":password,"fullname":fullname,"city":city,"birthyear":birthyear,"talents":talents}
 	def changepassword(self,username,password,newpassword):
-		outcheck = subprocess.check_output(f"./auth-module login {username} {password}")
+		outcheck = str(subprocess.check_output(f"./auth-module login {username} {password}",shell=True))
 		try:
 			outcheck.split("200")[1]
 
@@ -127,8 +127,10 @@ class db:
 			for a in data:
 				
 				if str(a.split("🇹🇷")[0]) == username:
-					if str(a.split("🇹🇷")[0]) == password:
-						data[data.index(a)] =f"{username}🇹🇷{newpassword}"
+					print("a")
+					if str(a.split("🇹🇷")[1].replace("\n","")) == password:
+						print("b")
+						data[data.index(a)] =f"{username}🇹🇷{newpassword}\n"
 						break
 					else:
 						pass
@@ -136,10 +138,18 @@ class db:
 					pass
 
 			with open('auth.txt', 'w') as outauth:
-    			outauth.writelines(data)
+				outauth.writelines(data)
+			userfilepasswordchange = open(f"users/{username}.K7USERFILE","r")
+			userfilepasswordchangedata = userfilepasswordchange.readlines()
+			userfilepasswordchangedata[2] = f"PASSWORD={newpassword};--;\n"
+			with open(f"users/{username}.K7USERFILE", 'w') as outauth2:
+				outauth2.writelines(userfilepasswordchangedata)
 
-		except:
-			return {"SCC":False,"err":"PASSWORD OR USERNAME IS NOT CORRECT","platform":self.platform}
+			return {"SCC":True,"err":"","project":self.projname}
+
+		except Exception as e:
+			print(e)
+			return {"SCC":False,"err":"PASSWORD OR USERNAME IS NOT CORRECT","project":self.projname}
 
 
 
