@@ -153,5 +153,22 @@ class db:
 
 
 
+	def removeuser(self,username,password):
+		checkout = str(subprocess.check_output(f"./auth-module login {username} {password}",shell=True))
+		try:
+			checkout.split("200")[1]
+			os.system(f"rm users/{username}.K7USERFILE")
+			allusers = open("auth.txt","r")
+			allusersdata = allusers.readlines()
+			for a in allusersdata:
+				if a.split("🇹🇷")[1] == password and a.split("🇹🇷")[0] == username:
+					allusersdata[allusersdata.index(a)]=""
+					break
+			
+			with open('auth.txt', 'w') as thedata:
+    				thedata.writelines(allusersdata)
 
-
+			return {"SCC":True,"err":"","project":self.projname}
+		except Exception as e:
+			#print(e)
+			return {"SCC":False,"err":"INVALID EMAIL OR PASSWORD","project":self.projname}
