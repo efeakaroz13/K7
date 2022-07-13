@@ -117,4 +117,31 @@ class db:
 									except:
 										pass
 		return {"projectname":projectname,"username":username,"password":password,"fullname":fullname,"city":city,"birthyear":birthyear,"talents":talents}
+	def changepassword(self,username,password,newpassword):
+		outcheck = subprocess.check_output(f"./auth-module login {username} {password}")
+		try:
+			outcheck.split("200")[1]
+
+			authfileopen = open("auth.txt","r")
+			data = authfileopen.readlines()
+			for a in data:
+				
+				if str(a.split("🇹🇷")[0]) == username:
+					if str(a.split("🇹🇷")[0]) == password:
+						data[data.index(a)] =f"{username}🇹🇷{newpassword}"
+						break
+					else:
+						pass
+				else:
+					pass
+
+			with open('auth.txt', 'w') as outauth:
+    			outauth.writelines(data)
+
+		except:
+			return {"SCC":False,"err":"PASSWORD OR USERNAME IS NOT CORRECT","platform":self.platform}
+
+
+
+
 
