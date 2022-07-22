@@ -2,6 +2,7 @@ from operator import sub
 import subprocess
 import os
 
+
 class auth:
     def sign_in(email,password):
         out = os.popen("./auth-module login {} {}".format(email,password)).read()
