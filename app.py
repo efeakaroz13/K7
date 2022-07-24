@@ -10,6 +10,9 @@ from databasekentel import db
 app = Flask(__name__)
 k7app = db("K7")
 
+@app.errorhandler(404)
+def fourofour(e):
+	return templates.Templates.notfound()
 @app.route("/")
 def index():
 	username = request.cookies.get("username")
@@ -17,8 +20,8 @@ def index():
 	if username == None:
 		return templates.Templates.return_index_tr()
 	else:
-		sign_in_stuff = auth.auth.sign_in(username,password)
-		if sign_in_stuff["login"] == True:
+		sign_in_stuff = k7app.login(username,password)
+		if sign_in_stuff["SCC"] == True:
 			return templates.Templates.return_home_tr(username)
 		else:
 			return templates.Templates.return_index_tr()
@@ -76,6 +79,11 @@ def register():
 				
 	response = make_response(templates.Templates.return_register_tr())
 	return response
+
+@app.route("/writearticle")
+def writeanarticle():
+	username = request.args.get("username")
+	return templates.Templates.writeart(username)
 
 app.run(debug=True)
 
