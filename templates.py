@@ -383,6 +383,9 @@ class Templates:
                 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
                 <link
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
                   rel="stylesheet"
@@ -551,6 +554,9 @@ class Templates:
                 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
                 <link
                   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
                   rel="stylesheet"
@@ -571,10 +577,16 @@ class Templates:
                 <br><br>
                 <br>
                 <center>
-                    
+                    <form action="" mehtod="POST">
+                        <input type="text" placeholder="Yazın Başlığı..." style="width:70%;"><br><br>
+                        <textarea class="form-control" style="width:70%;height:400px;" placeholder="İçerik..." ></textarea><br>
+                        <input type="text" placeholder="Yazı stili..." style="width:70%;"><br>
+                        <button style="font-family:verdana">Verdana</button>
+                        <button style="font-family:monospace">Monospace</button>
+                        <button>Default</button>
+                        <button style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
+                    </form>
                 </center>
-
-
                     
             </body>
             </html>
