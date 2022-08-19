@@ -1,8 +1,6 @@
 from concurrent.futures import thread
 from select import select
-from black import out
-from click import password_option
-from flask import render_template,redirect,request,abort,make_response,Flask
+from flask import redirect,request,abort,make_response,Flask
 import templates
 import auth
 from databasekentel import db
@@ -150,6 +148,51 @@ def articles(username):
 			textinfo = json.loads(decrypt(open("static/articles/{}".format(ar)).read()))
 			selecteds.insert(0,{"filename":ar,"data":textinfo})
 	return {"out":selecteds}
+
+
+@app.route("/read/<articleid>")
+def readersingle(articleid):
+	try:
+		articlereader = json.loads(decrypt(open(f"static/articles/{articleid}.ar","r").read()))
+		username = request.cookies.get("username")
+		password = request.cookies.get("password")
+		if articlereader["visibility"] == "public":
+			visibility = True 
+		else:
+			visibility = False
+		if username == None or password == None:
+			if visibility == True:
+				edit = False
+				mydata= {"edit":edit,"data1":articlereader}
+				return templates.Templates.articlereadsingle(mydata)
+			else:
+				return abort(404)
+		else:
+			try:
+				username = decrypt(username)
+				password = decrypt(password)
+			except:
+				if visibility == True:
+					edit = False
+					mydata= {"edit":edit,"data1":articlereader}
+				else:
+					return abort(404)
+			logcheck = k7app.login(username,password)
+			if logcheck["SCC"] == True and articleid.split("JDGFJAMDYCNAKLRUN")[0] == username:
+				edit=True
+				mydata= {"edit":edit,"data1":articlereader}
+				return templates.Templates.articlereadsingle(mydata,username=username)
+			else:
+				if visibility == True:
+					mydata= {"edit":False,"data1":articlereader}
+					return templates.Templates.articlereadsingle(mydata,username=username)
+
+				else:
+					return abort(404)
+	except Exception as e:
+		print(e)
+		return abort(404)
+		
 app.run(debug=True,port=3000)
 
 

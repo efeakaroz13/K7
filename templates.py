@@ -618,3 +618,79 @@ class Templates:
             </html>
 
         """ 
+
+    def articlereadsingle(articledata,username=None):
+        print(articledata["data1"].keys())
+        if username == None:
+            username =""
+            profilebar = ""
+        else:
+            profilebar = """
+            <a style="position:fixed;right:10px" href="/user/"""+username+""""><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a>
+            """
+        if articledata["edit"] == True:
+            title = """
+                <h2>"""+articledata['data1']['title']+"""<a style='margin-left:10px' href="?edit=BLYAD"><i class="fa-solid fa-pencil"></i></a></h2>
+            """
+            if articledata['data1']['visibility'] == "public":
+                visibility = """<p>Herkese Açık <i class="fa-solid fa-eye"></i><p>"""
+            else:
+                visibility = """<p>Gizli <i class="fa-solid fa-lock" ></i><p>"""
+
+        else:
+            visibility=""
+            title = """
+                <h2>"""+articledata['data1']['title']+"""</h2>
+            """
+        credit = """<i><a style='color:red'>"""+articledata['data1']['username']+"""</a> Tarafından <a style='color:blue'>"""+time.ctime(articledata['data1']['lastsaved'])+"""</a> tarihinde kaydedildi</i>"""
+
+        return """
+        <!DOCTYPE html>
+            <html lang="tr">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>K7 - Makale Oluştur</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                  rel="stylesheet"
+                />
+                <!-- Google Fonts -->
+                <link
+                  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                  rel="stylesheet"
+                />
+                <!-- MDB -->
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                  rel="stylesheet"
+                />
+            </head>
+            <body>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Okuyucu <code>"""+username+"""</code>"""+profilebar+"""</p>
+                <br><br>
+                <br>
+
+                <div class='titlething' style='margin-left:10px;'>
+                    """+title+"""
+                    """+visibility+"""
+                    """+credit+"""
+                </div>
+                <p>"""+str(articledata)+"""</p>
+                    
+            </body>
+            </html>
+        """
+
