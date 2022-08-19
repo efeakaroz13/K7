@@ -1,3 +1,4 @@
+import time
 class Templates:
     def return_index_tr():
         return"""
@@ -194,7 +195,7 @@ class Templates:
                 <ul class="list-group" style='width:70%;'>
             """
             for ar in articles:
-                articlescode=articlescode+"<li class='list-group-item'>"+str(ar)+"</li>"
+                articlescode=articlescode+"<li class='list-group-item' style='text-align:left;'><a href='/read/"+str(articles[articles.index(ar)]["data"]["articleid"])+"'>"+str(articles[articles.index(ar)]["data"]["title"])+"</a><a style='color:red;float:right'>"+str(articles[articles.index(ar)]["data"]["visibility"])+"</a><br><i style='color:black'>"+str(articles[articles.index(ar)]["data"]["article"])[:13]+"...</i><br><i>"+time.ctime(int(articles[articles.index(ar)]["data"]["lastsaved"]))+"</i></li>"
 
             articlescode= articlescode+"</ul>"
             print(articlescode)
