@@ -187,7 +187,23 @@ class Templates:
 
         """
 
-    def return_home_tr(username):
+    def return_home_tr(username,articles):
+        if len(articles) != 0:
+            print(articles)
+            articlescode = """
+                <ul class="list-group" style='width:70%;'>
+            """
+            for ar in articles:
+                articlescode=articlescode+"<li class='list-group-item'>"+str(ar)+"</li>"
+
+            articlescode= articlescode+"</ul>"
+            print(articlescode)
+        else:
+            articlescode = """
+                <ul class="list-group" style='width:70%;'>
+                    <li class="list-group-item">Daha önce hiç makale yazmadınız...</li>
+                </ul>
+            """
         return"""
 
             <!DOCTYPE html>
@@ -225,6 +241,8 @@ class Templates:
                 <br><br>
                 <br>
                 <center>
+                    <br>
+                    """+articlescode+"""<br>
                     <button onclick="window.location.assign('/writearticle')">Makale Yaz</button>
                 </center>
 
@@ -538,6 +556,7 @@ class Templates:
         """
 
     def writeart(username):
+        
         return """
             <!DOCTYPE html>
             <html lang="tr">
@@ -573,19 +592,25 @@ class Templates:
                 />
             </head>
             <body>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Makale Oluştur</p>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Makale Oluştur <code>"""+username+"""</code></p>
                 <br><br>
                 <br>
+                <script src="/static/article.js"></script>
                 <center>
-                    <form action="" mehtod="POST">
-                        <input type="text" placeholder="Yazın Başlığı..." style="width:70%;"><br><br>
-                        <textarea class="form-control" style="width:70%;height:400px;" placeholder="İçerik..." ></textarea><br>
-                        <input type="text" placeholder="Yazı stili..." style="width:70%;"><br>
-                        <button style="font-family:verdana">Verdana</button>
-                        <button style="font-family:monospace">Monospace</button>
-                        <button>Default</button>
-                        <button style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
+                    <form action="" method="POST">
+                        <input type="text" name="title"placeholder="Yazın Başlığı..." name="title" style="width:70%;"><br><br>
+                        <textarea id="article" name="article"class="form-control" style="width:70%;height:400px;" placeholder="İçerik..." ></textarea><br>
+                        <input id="fontfamily" name="fontfamily" class="disabled" value="default"type="text" placeholder="Yazı stili..." style="width:70%;display:none;">
+                        <select name="visibility" class="form-control"style="width:70%;margin-bottom:10pxd">
+                            <option value="public">Herkese Açık</option>
+                            <option value="private">Gizli</option>
+                        </select>
+                        <button>Kaydet</button><br><br>
                     </form>
+                    <button onclick="setfont('verdana')" style="font-family:verdana">Verdana</button>
+                    <button onclick="setfont('monospace')" style="font-family:monospace">Monospace</button>
+                    <button onclick="setfont('default')">Default</button>
+                    <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
                 </center>
                     
             </body>
