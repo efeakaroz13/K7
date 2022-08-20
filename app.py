@@ -1,14 +1,15 @@
 from concurrent.futures import thread
 from select import select
-from flask import redirect,request,abort,make_response,Flask
+from flask import redirect, request, abort, make_response, Flask
 import templates
 import auth
 from databasekentel import db
 import random
 import time
 from cryptography.fernet import Fernet
-import json 
+import json
 import os
+from operator import itemgetter
 
 app = Flask(__name__)
 k7app = db("K7")
@@ -18,6 +19,50 @@ key = b'D71kHIq7Wsyrjd30avvyzrS7BTT74lAXBB5y6mllnsQ='
 fernet = Fernet(key)
 
 
+def secondstostring(calculatorx):
+	if calculatorx < 500:
+		lastarticle = " Şimdi"
+	else:
+		if calculatorx <1500:
+			lastarticle="Kısa süre önce"
+		else:
+			if calculatorx <2000:
+				lastarticle = " Yarım saat önce"
+			else:
+				if calculatorx < 3600:
+					lastarticle = " Bir saat önce"
+				else:
+					if calculatorx <7200:
+						lastarticle = " İki saat önce"
+					else:
+						if calculatorx <108000:
+							lastarticle = " Üç saat önce"
+						else:
+							if calculatorx <14400:
+								lastarticle = " Dört saat önce"
+							else:
+								if calculatorx < 86400:
+									lastarticle = " Gün içerisinde"
+								else:
+									if calculatorx < 172800:
+										lastarticle = " Dün"
+									else:
+										if calculatorx < 604800:
+											lastarticle = " Bu hafta"
+										else:
+											if calculatorx < 2592000:
+												lastarticle = " Bu ay "
+											else:
+												if calculatorx < 5184000:
+													lastarticle = " Geçen ay "
+												else:
+													if calculatorx < 31557600:
+														lastarticle= " Bu yıl"
+													else:
+														years = calculatorx/31557600
+														lastarticle= f" {str(years)[:4]} yıl önce"
+
+	return lastarticle
 def encrypt(text):
 	encodedtext = fernet.encrypt(text.encode())
 	return encodedtext.decode()
@@ -126,7 +171,7 @@ def writeanarticle():
 				articledata = {"title":title,"article":article,"visibility":visibility,"fontfamily":fontfamily,"lastsaved":time.time(),"username":username,"articleid":articleid}
 				
 				open(f"static/articles/{articleid}.ar","w").write(encrypt(json.dumps(articledata,indent=4)))
-				return articledata
+				return redirect("/read/"+articleid)
 			else:
 				return {"403":"FORBIDDEN DUMBASS"}
 		except Exception as e :
@@ -237,7 +282,40 @@ def readersingle(articleid):
 		except Exception as e:
 			print(e)
 			return abort(404)
-		
+
+
+
+@app.route("/user/<username>")
+def usernameuser(username):
+	userdata1 =k7app.getuser(username) 
+	
+
+
+	if userdata1["SCC"] == True:
+		currenttime = time.time()
+		allarticles = os.listdir("static/articles")
+		outlist=[]
+		for ar in allarticles:
+			print(ar)
+			if ar.split("JDGFJAMDYCNAKLRUN")[0] == username:
+				myfiletoopen = open("static/articles/{}".format(ar),"r").read()
+				outlist.append(json.loads(decrypt(myfiletoopen)))
+
+		if len(outlist) == 0:
+			lastarticle=""
+		else:
+			selectorlist = sorted(outlist, key=itemgetter('lastsaved')) 
+			calculatorx = currenttime-selectorlist[-1]["lastsaved"]
+			lastarticle = secondstostring(calculatorx)
+
+
+		return templates.Templates.profiler(userdata=userdata1,lastarticle=str(lastarticle))
+	else:
+		return abort(404)
+
+@app.route("/test/<seconds>")
+def calculatortest(seconds):
+	return str(secondstostring(int(seconds)))
 app.run(debug=True,port=3000)
 
 

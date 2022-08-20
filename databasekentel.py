@@ -106,17 +106,17 @@ class db:
 							password = i.split("PASSWORD=")[1]
 						except:
 							try:
-								fullname = i.split("FULLNAME")[1]
+								fullname = i.split("FULLNAME=")[1]
 							except:
 								try:
-									city = i.split("CITY")[1]
+									city = i.split("CITY=")[1]
 								except:
 									try:
 										birthyear = i.split("BIRTHYEAR")[1]
 
 									except:
 										pass
-		return {"projectname":projectname,"username":username,"password":password,"fullname":fullname,"city":city,"birthyear":birthyear,"talents":talents}
+		return {"SCC":True,"projectname":projectname,"username":username,"password":password,"fullname":fullname,"city":city,"birthyear":birthyear,"talents":talents}
 	def changepassword(self,username,password,newpassword):
 		outcheck = str(subprocess.check_output(f"./auth-module login {username} {password}",shell=True))
 		try:
