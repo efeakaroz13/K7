@@ -42,8 +42,7 @@ class Templates:
                     <div style="height:100%; margin-left:30px;">
                     <h2 style="font-family: 'Libre Franklin', sans-serif;">Bağımsız bilim kuruluşu </h2>
                     <p style="font-family: 'Libre Franklin', sans-serif;width:60%;">K7'nin amacı insanları doğru ve güvenilir bilgiye ulaştırmak; insanları eğitmek ve kültürlendirmektir. Her okuyucu K7'nin imkanlarını ücretsiz olarak kullanabilir. K7 hakkında daha fazla bilgi için <a href="https://cetele.pythonanywhere.com/read/K7%20ve%20ama%C3%A7lar%C4%B1">buraya</a> gözatabilirsiniz</p>
-                    <i style="font-family: 'Libre Franklin', sans-serif; font-size:10px">K7'de bir şey yayımlamadan önce gönderileriniz moderatörlerimiz tarafından incelenmektedir.</i>
-                    </div>
+                  </div>
 
                 <br><br>
 
@@ -644,6 +643,7 @@ class Templates:
             """
         credit = """<i><a style='color:red'>"""+articledata['data1']['username']+"""</a> Tarafından <a style='color:blue'>"""+time.ctime(articledata['data1']['lastsaved'])+"""</a> tarihinde kaydedildi</i>"""
 
+        article = """<p style="color:black;font-family:"""+articledata['data1']['fontfamily']+""" ">"""+articledata['data1']['article']+"""</p>"""
         return """
         <!DOCTYPE html>
             <html lang="tr">
@@ -682,13 +682,120 @@ class Templates:
                 <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Okuyucu <code>"""+username+"""</code>"""+profilebar+"""</p>
                 <br><br>
                 <br>
-
-                <div class='titlething' style='margin-left:10px;'>
+                <center>
+                <div class='titlething' style="width:80%;text-align:left">
                     """+title+"""
                     """+visibility+"""
                     """+credit+"""
+                    <br><br>
+                    
                 </div>
-                <p>"""+str(articledata)+"""</p>
+
+                    <div style="width:80%;text-align:left">
+                    """+article+"""
+                    </div>
+                </center>
+                    
+            </body>
+            </html>
+        """
+
+    def articleedit(articledata,username=None):
+        print(articledata["data1"].keys())
+        if username == None:
+            username =""
+            profilebar = ""
+        else:
+            profilebar = """
+            <a style="position:fixed;right:10px" href="/user/"""+username+""""><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a>
+            """
+
+        title = """
+            <input name='title' class='form-control' style='width:80%;' value='"""+articledata['data1']['title']+"""'/>
+        """
+        selectorform1 = """<br>
+            <select name="visibility" class='form-control'style='width:80%;'>
+                <option value="public">Herkese Açık</option>
+                <option value="private">Gizli</option>
+            </select>
+        """
+        selectorform2 = """<br>
+            <select name="visibility"  class='form-control'style='width:80%;'>
+                <option value="private">Gizli</option>
+                <option value="public">Herkese Açık</option>
+                
+            </select><br>
+        """
+
+        if articledata['data1']['visibility'] == "public":
+            visibility = str(selectorform1)
+        else:
+            visibility = str(selectorform2)
+        
+        credit = """<i><a style='color:blue'>"""+time.ctime(articledata['data1']['lastsaved'])+"""</a> tarihinde kaydedildi</i>"""
+
+        article = """<textarea  name='article' class='form-control' id='article' style="width:80%;height:400px;color:black;font-family:"""+articledata['data1']['fontfamily']+""" ">"""+articledata['data1']['article']+"""</textarea>"""
+        return """
+        <!DOCTYPE html>
+            <html lang="tr">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>K7 - Makale Oluştur</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                  rel="stylesheet"
+                />
+                <!-- Google Fonts -->
+                <link
+                  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                  rel="stylesheet"
+                />
+                <!-- MDB -->
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                  rel="stylesheet"
+                />
+            </head>
+            <body>
+                <script src="/static/article.js"></script>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Okuyucu <code>"""+username+"""</code>"""+profilebar+"""</p>
+                <br><br>
+                <br>
+                <center>
+                <form action="" method="POST">
+                    <div class='titlething' >
+                        """+title+"""
+                        """+visibility+"""
+                        """+credit+"""
+                        <br><br>
+                        <input type='text' id="fontfamily" style='display:none;' name='fontfamily'>
+                    </div>
+
+                    <div >
+                    """+article+"""
+                    </div>
+                    <br>
+                    <button type="submit">Kaydet</button><br><br>
+                </form>
+                    <button onclick="setfont('verdana')" style="font-family:verdana">Verdana</button>
+                    <button onclick="setfont('monospace')" style="font-family:monospace">Monospace</button>
+                    <button onclick="setfont('default')">Default</button>
+                    <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
+                </center>
+
                     
             </body>
             </html>

@@ -150,48 +150,93 @@ def articles(username):
 	return {"out":selecteds}
 
 
-@app.route("/read/<articleid>")
+@app.route("/read/<articleid>",methods=["POST","GET"])
 def readersingle(articleid):
-	try:
-		articlereader = json.loads(decrypt(open(f"static/articles/{articleid}.ar","r").read()))
+	editmode = request.args.get("edit")
+	if editmode == "BLYAD":
 		username = request.cookies.get("username")
 		password = request.cookies.get("password")
-		if articlereader["visibility"] == "public":
-			visibility = True 
+		try:
+			username = decrypt(username)
+			password = decrypt(password)
+
+		except:
+			return abort(403)
+		if request.method == "POST":
+			articlereader = json.loads(decrypt(open(f"static/articles/{articleid}.ar","r").read()))
+			theout = k7app.login(username,password)
+			if theout["SCC"] == True and articlereader["username"] == username:
+				title = request.form.get("title")
+				article = request.form.get("article")
+				lastchange = time.time()
+				visibility = request.form.get("visibility")
+				fontfamily = request.form.get("fontfamily")
+				articlereader["title"] = title 
+				articlereader["article"] = article 
+				articlereader["lastsaved"] = lastchange
+				articlereader["fontfamily"] = fontfamily
+				articlereader["visibility"] = visibility
+
+				writer = open(f"static/articles/{articleid}.ar","w")
+				writer.write(encrypt(json.dumps(articlereader,indent=4)))
+				return redirect("/read/"+articleid+"?edit=BLYAD")
+
+		try:
+			articlereader = json.loads(decrypt(open(f"static/articles/{articleid}.ar","r").read()))
+		except:
+			return abort(404)
+		theout = k7app.login(username,password)
+		if theout["SCC"] == True and articlereader["username"] == username:
+			editormode = True 
+			edit=True
+			mydata = {"edit":edit,"data1":articlereader}
+
+			return templates.Templates.articleedit(username=username,articledata=mydata)
 		else:
-			visibility = False
-		if username == None or password == None:
-			if visibility == True:
-				edit = False
-				mydata= {"edit":edit,"data1":articlereader}
-				return templates.Templates.articlereadsingle(mydata)
+			return redirect("/read/"+articleid)
+	else:
+		if request.method == "POST":
+			return abort(403)
+		try:
+			articlereader = json.loads(decrypt(open(f"static/articles/{articleid}.ar","r").read()))
+			username = request.cookies.get("username")
+			password = request.cookies.get("password")
+			if articlereader["visibility"] == "public":
+				visibility = True 
 			else:
-				return abort(404)
-		else:
-			try:
-				username = decrypt(username)
-				password = decrypt(password)
-			except:
+				visibility = False
+			if username == None or password == None:
 				if visibility == True:
 					edit = False
 					mydata= {"edit":edit,"data1":articlereader}
+					return templates.Templates.articlereadsingle(mydata)
 				else:
 					return abort(404)
-			logcheck = k7app.login(username,password)
-			if logcheck["SCC"] == True and articleid.split("JDGFJAMDYCNAKLRUN")[0] == username:
-				edit=True
-				mydata= {"edit":edit,"data1":articlereader}
-				return templates.Templates.articlereadsingle(mydata,username=username)
 			else:
-				if visibility == True:
-					mydata= {"edit":False,"data1":articlereader}
+				try:
+					username = decrypt(username)
+					password = decrypt(password)
+				except:
+					if visibility == True:
+						edit = False
+						mydata= {"edit":edit,"data1":articlereader}
+					else:
+						return abort(404)
+				logcheck = k7app.login(username,password)
+				if logcheck["SCC"] == True and articleid.split("JDGFJAMDYCNAKLRUN")[0] == username:
+					edit=True
+					mydata= {"edit":edit,"data1":articlereader}
 					return templates.Templates.articlereadsingle(mydata,username=username)
-
 				else:
-					return abort(404)
-	except Exception as e:
-		print(e)
-		return abort(404)
+					if visibility == True:
+						mydata= {"edit":False,"data1":articlereader}
+						return templates.Templates.articlereadsingle(mydata,username=username)
+
+					else:
+						return abort(404)
+		except Exception as e:
+			print(e)
+			return abort(404)
 		
 app.run(debug=True,port=3000)
 
