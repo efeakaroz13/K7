@@ -801,8 +801,50 @@ class Templates:
             </html>
         """
 
-    def profiler(userdata,lastarticle):
-       return """
+    def profiler(userdata,lastarticle,profileofmine,outlist):
+
+        if profileofmine == True :
+            codeinjector1card ="""
+            
+                <a style='text-align:left;margin-left:20px;margin-bottom:20px'><i class="fa-solid fa-gear" style="background: linear-gradient(to right, #d2d5d6,#3d515e, #2f4451, #214052);-webkit-text-fill-color: transparent;-webkit-background-clip: text;"></i> Ayarlar</a><center><div style='margin-top:10px;width:100%;height:2px;border:1px solid #888688; '></div></center>
+                <br>
+                <a href="">Şifreni değiştir</a>
+            """
+            codeinjector2list = """
+                            <ul class="list-group" style='width:80%;'>
+                        """
+            if len(outlist) >1:
+                for ar in outlist:
+                    codeinjector2list = codeinjector2list + "<li class='list-group-item' style='text-align:left;'><a href='/read/" + str(
+                        outlist[outlist.index(ar)]["articleid"]) + "'>" + str(
+                        outlist[outlist.index(ar)]["title"]) + "</a><a style='color:red;float:right'>" + str(
+                        outlist[outlist.index(ar)]["visibility"]) + "</a><br><i style='color:black'>" + str(
+                        outlist[outlist.index(ar)]["article"])[:20] + "...</i><br><i>" + time.ctime(
+                        int(outlist[outlist.index(ar)]["lastsaved"])) + "</i></li>"
+            else:
+                pass
+            codeinjector2list = codeinjector2list + "</ul>"
+
+        else:
+            codeinjector1card=""
+            codeinjector2list = """
+            <ul class="list-group" style='width:80%;'>
+            
+            """
+            if len(outlist) >1:
+                for ar in outlist:
+                    if outlist[outlist.index(ar)]["visibility"] == "public":
+                        codeinjector2list = codeinjector2list + "<li class='list-group-item' style='text-align:left;'><a href='/read/" + str(
+                            outlist[outlist.index(ar)]["articleid"]) + "'>" + str(
+                            outlist[outlist.index(ar)]["title"]) + "</a><a style='color:red;float:right'>" + str(
+                            outlist[outlist.index(ar)]["visibility"]) + "</a><br><i style='color:black'>" + str(
+                            outlist[outlist.index(ar)]["article"])[:20] + "...</i><br><i>" + time.ctime(
+                            int(outlist[outlist.index(ar)]["lastsaved"])) + "</i></li>"
+            else:
+                pass
+            codeinjector2list = codeinjector2list + "</ul>"
+
+        return """
         <!DOCTYPE html>
             <html lang="tr">
             <head>
@@ -846,12 +888,14 @@ class Templates:
                         <h5 class="card-title">"""+userdata["fullname"]+"""</h5>
                         <i>"""+userdata["username"]+"""</i>
                         <p class="card-body">
-                            <p><i class="fa-solid fa-newspaper" style='margin-right:10px;'></i>Son düzenleme: """+lastarticle+"""</p>
-                            <p><i style='margin-right:10px' class="fa-solid fa-location-dot"></i>"""+userdata["city"]+"""</p>
+                            <p><i class="fa-solid fa-newspaper"  style="background: linear-gradient(to right, #d2d5d6,#3d515e, #2f4451, #214052);-webkit-text-fill-color: transparent;-webkit-background-clip: text;margin-right:10px"></i>Son düzenleme: """+lastarticle+"""</p>
+                            <p><i style="background: linear-gradient(to right, #f00821,#f10821, #f00834, #f00821);-webkit-text-fill-color: transparent;-webkit-background-clip: text;margin-right:10px" class="fa-solid fa-location-dot"></i>"""+userdata["city"]+"""</p>
                         </p>
+                        <br>
+                        """+codeinjector1card+"""
                     </div>
-                </div>
-                <p>"""+str(userdata)+"""</p>
+                </div><br>
+                """+codeinjector2list+"""
                 </center>
                 
                     

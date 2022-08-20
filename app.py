@@ -287,7 +287,19 @@ def readersingle(articleid):
 
 @app.route("/user/<username>")
 def usernameuser(username):
-	userdata1 =k7app.getuser(username) 
+	try:
+		username_current = decrypt(request.cookies.get("username"))
+		password_current = decrypt(request.cookies.get("password"))
+		theauthchecker = k7app.login(username_current,password_current)
+		if theauthchecker["SCC"] == True and username == username_current:
+			profileofmine = True
+		else:
+			profileofmine = False
+
+
+	except:
+		profileofmine = False
+	userdata1 =k7app.getuser(username)
 	
 
 
@@ -309,13 +321,11 @@ def usernameuser(username):
 			lastarticle = secondstostring(calculatorx)
 
 
-		return templates.Templates.profiler(userdata=userdata1,lastarticle=str(lastarticle))
+		return templates.Templates.profiler(outlist=outlist,userdata=userdata1,lastarticle=str(lastarticle),profileofmine=profileofmine)
 	else:
 		return abort(404)
 
-@app.route("/test/<seconds>")
-def calculatortest(seconds):
-	return str(secondstostring(int(seconds)))
+
 app.run(debug=True,port=3000)
 
 
