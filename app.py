@@ -10,13 +10,25 @@ from cryptography.fernet import Fernet
 import json
 import os
 from operator import itemgetter
+import pyrebase
+from credentials import firebase_credentials
+import requests
 
 app = Flask(__name__)
 k7app = db("K7")
 
+firebasevar = firebase_credentials()
+mydb = firebasevar.db
+databaseURL = firebasevar.databaseurl
 
 key = b'D71kHIq7Wsyrjd30avvyzrS7BTT74lAXBB5y6mllnsQ='
 fernet = Fernet(key)
+
+def jsonRequestFirebase(databaseURL,path=".json"):
+	#with / end of the url
+	page = requests.get(databaseURL+path).content
+	jsonobj = json.loads(page)
+	return jsonobj
 
 
 def secondstostring(calculatorx):
@@ -244,6 +256,20 @@ def readersingle(articleid):
 			return abort(403)
 		try:
 			articlereader = json.loads(decrypt(open(f"static/articles/{articleid}.ar","r").read()))
+
+			try:
+				ip_addr = request.environ['REMOTE_ADDR']
+			except:
+				try:
+					ip_addr = request.environ['HTTP_X_FORWARDED_FOR']
+				except:
+					ip_addr = "00000"
+
+			ip_addr = ip_addr.replace(".", "")
+			mydb.child("K7APP").child("articleviews").child(articleid).update(articlereader)
+			mydb.child("K7APP").child("articleviews").child(articleid).child("views").child(ip_addr).set(
+				{"useragent": str(request.headers.get('User-Agent'))})
+
 			username = request.cookies.get("username")
 			password = request.cookies.get("password")
 			if articlereader["visibility"] == "public":
@@ -324,6 +350,8 @@ def usernameuser(username):
 		return templates.Templates.profiler(outlist=outlist,userdata=userdata1,lastarticle=str(lastarticle),profileofmine=profileofmine)
 	else:
 		return abort(404)
+
+
 
 
 app.run(debug=True,port=3000)
