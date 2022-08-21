@@ -809,7 +809,7 @@ class Templates:
             
                 <a style='text-align:left;margin-left:20px;margin-bottom:20px'><i class="fa-solid fa-gear" style="background: linear-gradient(to right, #d2d5d6,#3d515e, #2f4451, #214052);-webkit-text-fill-color: transparent;-webkit-background-clip: text;"></i> Ayarlar</a><center><div style='margin-top:10px;width:100%;height:2px;border:1px solid #888688; '></div></center>
                 <br>
-                <a href="">Şifreni değiştir</a>
+                <a href="/change/password">Şifreni değiştir</a>
             """
             codeinjector2list = """
                             <ul class="list-group" style='width:80%;'>
@@ -903,4 +903,131 @@ class Templates:
             </body>
             </html>
         """
+
+    def changepassword(username_,error__):
+
+
+        toreturn=  """<!DOCTYPE html>
+            <html lang="tr">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>K7 - Makale Oluştur</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                  rel="stylesheet"
+                />
+                <!-- Google Fonts -->
+                <link
+                  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                  rel="stylesheet"
+                />
+                <!-- MDB -->
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                  rel="stylesheet"
+                />
+            </head>
+            <body>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Şifreni Değiştir</p>
+                <br><br>
+                <center>
+                <div class="card" style="width:70%;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color:black;font-family:verdana">Şifreni Değiştir</h5>
+                        <form action="" method="POST"><br>
+                            <input type="text" style="width:70%;" placeholder="Kullanıcı adınız(doğrulama için)" name="username_verify" class="form-control" required>
+                            <input type="password" style="width:70%;" placeholder="Mevcut şifreniz..." name="oldpassword" class="form-control" required>
+                            <input type="password" style="width:70%;color:black;" placeholder="Yeni şifreniz..." name="newpassword" class="form-control" required><br>
+                            <button class="btn btn-outline-dark">Şifreyi Kaydet</button><br>
+                            
+                        </form>
+                        <i style='color:red;font-size:10px;'>"""
+
+        secondpart="""</i>
+                    </div>
+                
+                </div>
+                </center>
+                
+                    
+            </body>
+            </html>"""
+
+        return toreturn+secondpart
+
+    def changepassword_err(username_, error__):
+
+        toreturn = """<!DOCTYPE html>
+            <html lang="tr">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>K7 - Makale Oluştur</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                  rel="stylesheet"
+                />
+                <!-- Google Fonts -->
+                <link
+                  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                  rel="stylesheet"
+                />
+                <!-- MDB -->
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                  rel="stylesheet"
+                />
+            </head>
+            <body>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Şifreni Değiştir</p>
+                <br><br>
+                <center>
+                <div class="card" style="width:70%;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color:black;font-family:verdana">Şifreni Değiştir</h5>
+                        <form action="" method="POST"><br>
+                            <input type="text" style="width:70%;" placeholder="Kullanıcı adınız(doğrulama için)" name="username_verify" class="form-control" required>
+                            <input type="password" style="width:70%;" placeholder="Mevcut şifreniz..." name="oldpassword" class="form-control" required>
+                            <input type="password" style="width:70%;color:black;" placeholder="Yeni şifreniz..." name="newpassword" class="form-control" required><br>
+                            <button class="btn btn-outline-dark">Şifreyi Kaydet</button><br>
+
+                        </form>
+                        <i style='color:red;font-size:10px;'>"""
+
+        secondpart = """</i>
+                    </div>
+
+                </div>
+                </center>
+
+
+            </body>
+            </html>"""
+
+        return toreturn +error__+ secondpart
 

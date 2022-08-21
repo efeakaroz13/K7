@@ -357,7 +357,40 @@ def usernameuser(username):
 		return abort(404)
 
 
+@app.route("/change/password",methods=["POST","GET"])
+def passwordchangerroute():
+	if request.method == "POST":
+		username = decrypt(request.cookies.get("username"))
+		password = decrypt(request.cookies.get("password"))
+		theauthchecker = k7app.login(username, password)
+		if theauthchecker["SCC"] == True:
+			oldpassword = request.form.get("oldpassword").strip()
+			newpassword = request.form.get("newpassword").strip()
+			if oldpassword == newpassword:
+				return templates.Templates.changepassword_err(username,"Eski şifren ile yeni şifren aynı olamaz")
+			else:
+				usernamechecker = request.form.get("username_verify")
+				if usernamechecker.strip() == username:
+					passwordchangervariable = k7app.changepassword(username,oldpassword,newpassword)
+					if passwordchangervariable["SCC"] == True:
+						return redirect("/login")
+					else:
+						return templates.Templates.changepassword_err(username,"Şifre değiştirilirken bir hata oluştu")
+				else:
+					return templates.Templates.changepassword_err(username,"Kullanıcı adları uyuşmuyor")
+		else:
+			return redirect("/login")
+	try:
+		username = decrypt(request.cookies.get("username"))
+		password = decrypt(request.cookies.get("password"))
+		theauthchecker = k7app.login(username,password)
+		if theauthchecker["SCC"] == True:
 
+			return templates.Templates.changepassword(username,None)
+		else:
+			return redirect("/login")
+	except Exception as e:
+		return str(e)
 
 app.run(debug=True,port=3000)
 
