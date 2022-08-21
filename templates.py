@@ -618,7 +618,7 @@ class Templates:
 
         """ 
 
-    def articlereadsingle(articledata,username=None):
+    def articlereadsingle(articledata,username=None,views=0):
         print(articledata["data1"].keys())
         if username == None:
             username =""
@@ -685,6 +685,7 @@ class Templates:
                 <center>
                 <div class='titlething' style="width:80%;text-align:left">
                     """+title+"""
+                    <i style='font-size:10px'>"""+views+""" kere görüntülendi</i><br><br>
                     """+visibility+"""
                     """+credit+"""
                     <br><br>

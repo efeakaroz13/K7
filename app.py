@@ -210,6 +210,11 @@ def articles(username):
 @app.route("/read/<articleid>",methods=["POST","GET"])
 def readersingle(articleid):
 	editmode = request.args.get("edit")
+	try:
+		views_count = str(len(jsonRequestFirebase(databaseURL,"K7APP/articleviews/{}/views.json".format(articleid))))
+	except Exception as e:
+		views_count = str(0)
+
 	if editmode == "BLYAD":
 		username = request.cookies.get("username")
 		password = request.cookies.get("password")
@@ -280,7 +285,7 @@ def readersingle(articleid):
 				if visibility == True:
 					edit = False
 					mydata= {"edit":edit,"data1":articlereader}
-					return templates.Templates.articlereadsingle(mydata)
+					return templates.Templates.articlereadsingle(mydata,views=views_count)
 				else:
 					return abort(404)
 			else:
@@ -297,11 +302,11 @@ def readersingle(articleid):
 				if logcheck["SCC"] == True and articleid.split("JDGFJAMDYCNAKLRUN")[0] == username:
 					edit=True
 					mydata= {"edit":edit,"data1":articlereader}
-					return templates.Templates.articlereadsingle(mydata,username=username)
+					return templates.Templates.articlereadsingle(mydata,username=username,views=views_count)
 				else:
 					if visibility == True:
 						mydata= {"edit":False,"data1":articlereader}
-						return templates.Templates.articlereadsingle(mydata,username=username)
+						return templates.Templates.articlereadsingle(mydata,username=username,views=views_count)
 
 					else:
 						return abort(404)
