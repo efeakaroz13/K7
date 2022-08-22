@@ -1,3 +1,14 @@
 {
-  "myjson": "myjson"
+  "listofarticles": [
+    {
+      "title": "kentel",
+      "writer": "efeakaroz13",
+      "points": 10.1
+    },
+    {
+      "title": "K7",
+      "writer": "efeakaroz13",
+      "points": 10.2
+    }
+  ]
 }
