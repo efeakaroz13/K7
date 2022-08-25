@@ -62,7 +62,7 @@ void getdatabase(){
 	ifstream f2("secret.json");
     json credentialdataread = json::parse(f2);
     string databaseurlBase = credentialdataread["firebaseConfig"]["databaseURL"];
-    string databaseurl = databaseurlBase+"K7APP/articleviews.json";
+    string databaseurl = databaseurlBase+"K7APP.json";
 
 
 
@@ -106,8 +106,19 @@ void getdatabase(){
     {
 
         json myjsondata= json::parse(*httpData.get());
-        cout<<myjsondata;
+        json articlearray = myjsondata["articleviews"];
+        int databasecounter = articlearray.size();
+        cout<<"\n";
 
+        for (auto eid = articlearray.begin(); eid != articlearray.end(); ++eid)
+        {
+    
+            cout<<"Views for "<<eid.key()<<":"<<myjsondata["articleviews"][eid.key()]["views"].size();
+            cout<<"\n";
+        }
+        
+        int i;
+        cout<<databasecounter;
         
         cout<<"\n\n";
 
@@ -118,7 +129,7 @@ void getdatabase(){
     }
     else
     {
-        std::cout << "Couldn't GET from " << url << " - exiting" << std::endl;
+        std::cout << "ERR | DATABASE LOAD FAILED  " << url << " - exiting\n" << std::endl;
 
     }
 
