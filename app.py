@@ -13,6 +13,9 @@ from operator import itemgetter
 import pyrebase
 from credentials import firebase_credentials
 import requests
+from sorterAPI import Sorter
+
+
 
 app = Flask(__name__)
 k7app = db("K7")
@@ -391,6 +394,21 @@ def passwordchangerroute():
 			return redirect("/login")
 	except Exception as e:
 		return str(e)
+
+@app.route("/explore")
+def explorePage():
+	mysorter = Sorter()
+	try:
+		mysorter.init()
+	except:
+		pass
+	try:
+		mydata = mysorter.getData()
+	except:
+		mydata = []
+	return {"outdata":mydata}
+
+
 
 app.run(debug=True,port=3000)
 
