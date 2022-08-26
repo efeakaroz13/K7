@@ -1,24 +1,34 @@
 {
     "listofarticles": [
         {
-            "points": 8.11,
-            "title": "K7",
-            "writer": "efeakaroz13"
+            "article": "Merhaba deneme makaleme hoş geldiniz",
+            "articleid": "efeakaroz13JDGFJAMDYCNAKLRUN2195958117761",
+            "fontfamily": "default",
+            "lastsaved": 1660999281.693085,
+            "points": 0.5699999928474426,
+            "title": "deneme",
+            "username": "efeakaroz13",
+            "views": {
+                "127001": {
+                    "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Safari/605.1.15"
+                }
+            },
+            "visibility": "public"
         },
         {
-            "points": 10.1,
-            "title": "kentel",
-            "writer": "efeakaroz13"
-        },
-        {
-            "points": 10.2,
-            "title": "K7",
-            "writer": "efeakaroz13"
-        },
-        {
-            "points": 12.9,
-            "title": "K7",
-            "writer": "efeakaroz13"
+            "article": "Kentel k7'nin yapımcısı olan teknoloji kuruluşudur. Değiştirilmiş",
+            "articleid": "efeakaroz13JDGFJAMDYCNAKLRUN1067499371591",
+            "fontfamily": "",
+            "lastsaved": 1660995604.7871108,
+            "points": 0.9200000166893005,
+            "title": "Kentel",
+            "username": "efeakaroz13",
+            "views": {
+                "127001": {
+                    "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36"
+                }
+            },
+            "visibility": "private"
         }
     ]
 }

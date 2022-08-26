@@ -61,41 +61,19 @@ void getdatabase(){
     json credentialdataread = json::parse(f2);
     string databaseurlBase = credentialdataread["firebaseConfig"]["databaseURL"];
     string databaseurl = databaseurlBase+"K7APP.json";
-
-
-
-
-
-
     const std::string url(databaseurl);
-
+    json newjsonarray = {};
+    json arrayobj = json::array();
+    newjsonarray["listofarticles"] = arrayobj;
     CURL* curl = curl_easy_init();
-
-    // Set remote URL.
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-
-    // Don't bother trying IPv6, which would increase DNS resolution time.
     curl_easy_setopt(curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-
-    // Don't wait forever, time out after 10 seconds.
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
-
-    // Follow HTTP redirects if necessary.
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-
-    // Response information.
     long httpCode(0);
     std::unique_ptr<std::string> httpData(new std::string());
-
-    // Hook up data handling function.
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, callback);
-
-    // Hook up data container (will be passed as the last parameter to the
-    // callback handling function).  Can be any pointer type, since it will
-    // internally be passed as a void pointer.
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, httpData.get());
-
-    // Run our HTTP GET command, capture the HTTP response code, and clean up.
     curl_easy_perform(curl);
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpCode);
     curl_easy_cleanup(curl);
@@ -126,22 +104,46 @@ void getdatabase(){
             
             float viewspoints = myjsondata["articleviews"][eid.key()]["views"].size();
             float durationbetweenpublishandnow = timefloat-timedatabase;
+            
+            bool today;
+            bool thisweek;
             if(durationbetweenpublishandnow<86400){
-                cout<<"Today\n";
-            }
-            if(durationbetweenpublishandnow<604800){
-                cout<<"This week\n";
+
+                today = true;
+                thisweek = false;
+
+            }else if(durationbetweenpublishandnow<604800){
+
+                today = false;
+                thisweek = true;
+
             }else{
-                cout<<"More than one week\n";
+
+                today = false;
+                thisweek = false;
+
             }
 
-            cout<<"ARTICLE "<<eid.key()<<" |\n";
-            cout<<"Time since it written(seconds):"<<durationbetweenpublishandnow<<"\n";
-            cout<<"Points for text:"<<articlepoints<<"\n\n";
+            float viewspointsnew;
 
-            cout<<"\n";
+            if(today==true){
+                viewspointsnew = viewspoints*0.1f+viewspoints*0.2f;
+            }
+            else if(thisweek==true){
+                viewspointsnew = viewspoints*0.1f+viewspoints*0.1f;
+
+            }else{
+                viewspointsnew = viewspoints*0.1f;
+            }
+           
+            float totalpoints = viewspointsnew+articlepoints;
+            cout<<"Points for article:"<<totalpoints<<"\n\n";
+            myjsondata["articleviews"][eid.key()]["points"] = totalpoints;
+            newjsonarray["listofarticles"].push_back(myjsondata["articleviews"][eid.key()]);
+            
         }
-        
+        ofstream c("sort.json");
+        c << setw(4) << newjsonarray << endl;
         int i;
         cout<<databasecounter;
         
