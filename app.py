@@ -1,6 +1,6 @@
 from concurrent.futures import thread
 from select import select
-from flask import redirect, request, abort, make_response, Flask
+from flask import redirect, request, abort, make_response, Flask,render_template
 import templates
 import auth
 from databasekentel import db
@@ -397,6 +397,14 @@ def passwordchangerroute():
 
 @app.route("/explore")
 def explorePage():
+	p = request.args.get("p")
+	if p == None:
+		p = 0
+	try:
+		p = int(p)
+	except:
+		p = 0
+
 	mysorter = Sorter()
 	try:
 		mysorter.init()
@@ -406,7 +414,9 @@ def explorePage():
 		mydata = mysorter.getData()
 	except:
 		mydata = []
-	return {"outdata":mydata}
+
+
+	return render_template("explore.html",data=mydata)
 
 
 

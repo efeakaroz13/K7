@@ -89,59 +89,59 @@ void getdatabase(){
 
         for (auto eid = articlearray.begin(); eid != articlearray.end(); ++eid)
         {
+            if(myjsondata["articleviews"][eid.key()]["visibility"]=="public"){
+                time_t curtime;
+                struct tm nowLocal;
+                curtime =time(NULL);
+                float timefloat = curtime*1.0f;
 
-            time_t curtime;
-            struct tm nowLocal;
-            curtime =time(NULL);
-            float timefloat = curtime*1.0f;
 
 
+                json articledataitself = myjsondata["articleviews"][eid.key()];
+                string article = articledataitself["article"];
+                float timedatabase = articledataitself["lastsaved"];
+                remove(article.begin(), article.end(), ' ');
+                float articlepoints = article.size()/100.0f;
+                
+                float viewspoints = myjsondata["articleviews"][eid.key()]["views"].size();
+                float durationbetweenpublishandnow = timefloat-timedatabase;
+                
+                bool today;
+                bool thisweek;
+                if(durationbetweenpublishandnow<86400){
 
-            json articledataitself = myjsondata["articleviews"][eid.key()];
-            string article = articledataitself["article"];
-            float timedatabase = articledataitself["lastsaved"];
-            remove(article.begin(), article.end(), ' ');
-            float articlepoints = article.size()/100.0f;
-            
-            float viewspoints = myjsondata["articleviews"][eid.key()]["views"].size();
-            float durationbetweenpublishandnow = timefloat-timedatabase;
-            
-            bool today;
-            bool thisweek;
-            if(durationbetweenpublishandnow<86400){
+                    today = true;
+                    thisweek = false;
 
-                today = true;
-                thisweek = false;
+                }else if(durationbetweenpublishandnow<604800){
 
-            }else if(durationbetweenpublishandnow<604800){
+                    today = false;
+                    thisweek = true;
 
-                today = false;
-                thisweek = true;
+                }else{
 
-            }else{
+                    today = false;
+                    thisweek = false;
 
-                today = false;
-                thisweek = false;
+                }
 
+                float viewspointsnew;
+
+                if(today==true){
+                    viewspointsnew = viewspoints*0.1f+viewspoints*0.2f;
+                }
+                else if(thisweek==true){
+                    viewspointsnew = viewspoints*0.1f+viewspoints*0.1f;
+
+                }else{
+                    viewspointsnew = viewspoints*0.1f;
+                }
+               
+                float totalpoints = viewspointsnew+articlepoints;
+                cout<<"Points for article:"<<totalpoints<<"\n\n";
+                myjsondata["articleviews"][eid.key()]["points"] = totalpoints;
+                newjsonarray["listofarticles"].push_back(myjsondata["articleviews"][eid.key()]);
             }
-
-            float viewspointsnew;
-
-            if(today==true){
-                viewspointsnew = viewspoints*0.1f+viewspoints*0.2f;
-            }
-            else if(thisweek==true){
-                viewspointsnew = viewspoints*0.1f+viewspoints*0.1f;
-
-            }else{
-                viewspointsnew = viewspoints*0.1f;
-            }
-           
-            float totalpoints = viewspointsnew+articlepoints;
-            cout<<"Points for article:"<<totalpoints<<"\n\n";
-            myjsondata["articleviews"][eid.key()]["points"] = totalpoints;
-            newjsonarray["listofarticles"].push_back(myjsondata["articleviews"][eid.key()]);
-            
         }
         ofstream c("sort.json");
         c << setw(4) << newjsonarray << endl;
