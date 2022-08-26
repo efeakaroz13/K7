@@ -1,4 +1,5 @@
 #include <fstream>
+//Copyright (c) 2022 Efe Akaröz
 #include <iostream>
 #include <ostream>
 #include <nlohmann/json.hpp>
