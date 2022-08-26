@@ -643,7 +643,7 @@ class Templates:
             """
         credit = """<i><a style='color:red'>"""+articledata['data1']['username']+"""</a> Tarafından <a style='color:blue'>"""+time.ctime(articledata['data1']['lastsaved'])+"""</a> tarihinde kaydedildi</i>"""
 
-        article = """<p style="color:black;font-family:"""+articledata['data1']['fontfamily']+""" ">"""+articledata['data1']['article']+"""</p>"""
+        article = """<p style="color:black;font-family:"""+articledata['data1']['fontfamily']+";word-wrap: break-word; white-space: pre-wrap;"+"""">"""+articledata['data1']['article']+"""</p>"""
         return """
         <!DOCTYPE html>
             <html lang="tr">
