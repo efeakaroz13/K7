@@ -6,7 +6,9 @@
 #include <string>
 #include <sstream>
 #include <curl/curl.h>
-
+#include <time.h>
+#include <algorithm> 
+#include <chrono>
 
 //g++ sortjson.cpp -std=c++11 -lcurl -Iinclude -I/opt/local/include
 
@@ -25,6 +27,9 @@ namespace
         return totalBytes;
     }
 }
+
+
+
 void bubbleSort(json& arr, int n)
 {
 	int i, j;
@@ -50,13 +55,6 @@ void printJsonArray(json& jsonarr){
     	cout<<"\n\n";
     }
 }
-/*
-static size_t WriteCallback(void *contents,size_t size,size_t nmemb,void*userp){
-((std :: string*)userp)->append((char*)contents,size*nmemb);
-return size*nmemb;
-}
-string readBuffer;
-*/
 
 void getdatabase(){
 	ifstream f2("secret.json");
@@ -104,7 +102,7 @@ void getdatabase(){
 
     if (httpCode == 200)
     {
-
+        
         json myjsondata= json::parse(*httpData.get());
         json articlearray = myjsondata["articleviews"];
         int databasecounter = articlearray.size();
@@ -112,8 +110,35 @@ void getdatabase(){
 
         for (auto eid = articlearray.begin(); eid != articlearray.end(); ++eid)
         {
-    
-            cout<<"Views for "<<eid.key()<<":"<<myjsondata["articleviews"][eid.key()]["views"].size();
+
+            time_t curtime;
+            struct tm nowLocal;
+            curtime =time(NULL);
+            float timefloat = curtime*1.0f;
+
+
+
+            json articledataitself = myjsondata["articleviews"][eid.key()];
+            string article = articledataitself["article"];
+            float timedatabase = articledataitself["lastsaved"];
+            remove(article.begin(), article.end(), ' ');
+            float articlepoints = article.size()/100.0f;
+            
+            float viewspoints = myjsondata["articleviews"][eid.key()]["views"].size();
+            float durationbetweenpublishandnow = timefloat-timedatabase;
+            if(durationbetweenpublishandnow<86400){
+                cout<<"Today\n";
+            }
+            if(durationbetweenpublishandnow<604800){
+                cout<<"This week\n";
+            }else{
+                cout<<"More than one week\n";
+            }
+
+            cout<<"ARTICLE "<<eid.key()<<" |\n";
+            cout<<"Time since it written(seconds):"<<durationbetweenpublishandnow<<"\n";
+            cout<<"Points for text:"<<articlepoints<<"\n\n";
+
             cout<<"\n";
         }
         
