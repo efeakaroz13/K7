@@ -243,8 +243,27 @@ class Templates:
                 <center>
                     <br>
                     """+articlescode+"""<br>
-                    <button onclick="window.location.assign('/writearticle')">Makale Yaz</button>
+                    <button onclick="window.location.assign('/writearticle')">Makale Yaz</button><button onclick="window.location.assign('/explore')">Keşfet <i class="fa-solid fa-compass"></i></button>
                 </center>
+                <style>
+                    button{
+                        background:none;
+                        border:1px solid #000;
+                        border-radius:5px;
+                        margin:5px;
+                        transition:0.5s;
+
+                    }
+                    button:hover{
+                        background:#000;
+                        border:1px solid #fff;
+                        border-radius:5px;
+                        color:white;
+                        margin:5px;
+                        transition:0.5s;
+
+                    }
+                </style>
 
 
                     
