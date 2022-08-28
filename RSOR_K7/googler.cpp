@@ -1,7 +1,7 @@
 #include <iostream>
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
-
+#include <fstream>
 using json = nlohmann::json;
 
 using namespace std;
@@ -20,9 +20,22 @@ namespace
 }
 
 int main(int argc, char *argv[]){
-	
-	if(argc>1){
+	if(argc>2){
 		string search = argv[1];
+		string session = argv[2];
+		json output;
+		std::ifstream mf(session+".json");
+		if(mf){
+			output = json::parse(mf);
+		}else{
+			output = {};
+		}
+		
+
+		json myoutarray = json::array();
+		output["google"]=myoutarray;
+		
+		
 		int nm;
 		std::replace(search.begin(),search.end(),' ','+');
 		
@@ -42,16 +55,23 @@ int main(int argc, char *argv[]){
 	    curl_easy_cleanup(curl);
 
 	    cout<<"\n";
+	    json rnobj;
 	    if(httpCode == 200){
 	    	json googlejsonsearch = json::parse(*httpData.get());
 	    	json results= googlejsonsearch["items"];
 	    	for (int i=0; i<results.size();i++)
-	    	{
+	    	{	
+
+	    		output["google"].push_back(results[i]);
 	    		cout<<results[i]["title"];
 	    		cout<<"\n\n";
 
 			}
 		}
+		std::ofstream o(session+".json");
+		o << std::setw(4) << output << std::endl;
 	}
+	
+	
 
 }
