@@ -14,7 +14,6 @@ class RSOR:
 		os.system(f"""./duckie  "{query}" {self.session} """)
 		os.system(f"""./googler  "{query}" {self.session} """)
 		jsontoreturn = json.loads(open(self.session+".json","r").read())
-		os.system("rm {self.session}.json")
+		os.system(f"rm {self.session}.json")
 		return jsontoreturn
 
-		
