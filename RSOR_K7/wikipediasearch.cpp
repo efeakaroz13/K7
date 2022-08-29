@@ -71,7 +71,7 @@ int main(int argc, char *argv[]){
 
 				}
 			}else{
-				cout<<"No results!\n";
+				cout<<"No results!\n ";
 			}
 			
 		}
