@@ -18,7 +18,12 @@ class tor4K7:
 		for h in allh5:
 			hid = h.get("id")
 			if hid == "" or hid==None:
-				out.append(h.get_text())
+				try:
+					data = {"title":h.get_text(),"url":h.find_all("a")[0].get("href")}
+					out.append(data)
+				except:
+					pass
+
 			else:
 				pass
 
