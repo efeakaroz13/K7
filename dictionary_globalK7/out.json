@@ -1,0 +1,79 @@
+{
+    "google": [],
+    "yandexdictionary": [
+        {
+            "pos": "noun",
+            "text": "deneme",
+            "tr": [
+                {
+                    "fr": 10,
+                    "mean": [
+                        {
+                            "text": "deney"
+                        },
+                        {
+                            "text": "kontrol"
+                        },
+                        {
+                            "text": "örnek"
+                        }
+                    ],
+                    "pos": "noun",
+                    "syn": [
+                        {
+                            "fr": 10,
+                            "pos": "noun",
+                            "text": "контроль"
+                        },
+                        {
+                            "fr": 5,
+                            "pos": "noun",
+                            "text": "эксперимент"
+                        },
+                        {
+                            "fr": 5,
+                            "pos": "noun",
+                            "text": "испытание"
+                        },
+                        {
+                            "fr": 5,
+                            "pos": "noun",
+                            "text": "проба"
+                        }
+                    ],
+                    "text": "опыт"
+                },
+                {
+                    "fr": 10,
+                    "mean": [
+                        {
+                            "text": "deney"
+                        }
+                    ],
+                    "pos": "adjective",
+                    "text": "пробный"
+                },
+                {
+                    "fr": 1,
+                    "mean": [
+                        {
+                            "text": "yazı"
+                        }
+                    ],
+                    "pos": "noun",
+                    "text": "очерк"
+                },
+                {
+                    "fr": 1,
+                    "pos": "noun",
+                    "text": "исследовательская работа"
+                },
+                {
+                    "fr": 1,
+                    "pos": "verb",
+                    "text": "примерять"
+                }
+            ]
+        }
+    ]
+}
