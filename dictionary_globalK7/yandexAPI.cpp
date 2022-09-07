@@ -26,11 +26,11 @@ int main(int argc, char *argv[]){
 		json credentialsThing = json::parse(credentials);
 
 		if(!credentialsThing["apiKey"].is_null()){
-			if(argc>4){
+			if(argc>3){
 				string search = argv[1];
 				string session = argv[2];
-				string inputLanguage = argv[3];
-				string outputLanguage = argv[4];
+
+				string outputLanguage = argv[3];
 				json output;
 				std::ifstream mf(session+".json");
 				if(mf){
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]){
 				string APIKEY = credentialsThing["apiKey"];
 
 				cout<<"INFO | Searching:"<<search<<"\n\n";
-				string url = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key="+APIKEY+"&lang=tr-ru&text="+search;
+				string url = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key="+APIKEY+"&lang=tr-"+outputLanguage+"&text="+search;
 				
 				CURL* curl = curl_easy_init();
 				curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
