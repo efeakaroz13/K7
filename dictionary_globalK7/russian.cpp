@@ -47,10 +47,10 @@ int main(int argc, char *argv[]){
 				struct curl_slist* headers = NULL;
 				headers = curl_slist_append(headers, "Accept: application/json");
 				headers = curl_slist_append(headers, "Content-Type: application/json");
-
+				string APIKEY = credentialsThing["apiKey"];
 
 				cout<<"INFO | Searching:"<<search<<"\n\n";
-				string url = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20220901T204737Z.7fced7e4c26816a5.ef296b7c06c85ded97424aeaa6ded77736ae7fff&lang=tr-ru&text="+search;
+				string url = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key="+APIKEY+"&lang=tr-ru&text="+search;
 				
 				CURL* curl = curl_easy_init();
 				curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
