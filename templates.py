@@ -791,10 +791,13 @@ class Templates:
             </head>
             <body>
                 <script src="/static/article.js"></script>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Okuyucu <code>"""+username+"""</code>"""+profilebar+"""</p>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
                 <br><br>
                 <br>
                 <center>
+                <button class="btn btn-outline-dark"style="position:fixed;right:-20px;"><i class="fas fa-search" style="margin-right:8px"></i></button><br><br>
+                <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-10px"><i class="fa-solid fa-book-atlas" style="margin-right:8px;"></i></button><br><br>
+                <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505"><a style="margin-right:5px;">tr</a></button>
                 <form action="" method="POST">
                     <div class='titlething' >
                         """+title+"""
@@ -815,7 +818,8 @@ class Templates:
                     <button onclick="setfont('default')">Default</button>
                     <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
                 </center>
-
+                <div id="iframesearch">
+                </div>
                     
             </body>
             </html>
@@ -1095,3 +1099,234 @@ class Templates:
             </body>
             </html>"""
 
+
+    def rsorthing():
+             return """<!DOCTYPE html>
+                <html lang="tr">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>K7 - RSOR</title>
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                    <link
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                      rel="stylesheet"
+                    />
+                    <!-- Google Fonts -->
+                    <link
+                      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                      rel="stylesheet"
+                    />
+                    <!-- MDB -->
+                    <link
+                      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                      rel="stylesheet"
+                    />
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
+                </head>
+                <body>
+
+                    <br><br>
+                    <center>
+                    <h2>RSOR</h2>
+                    <div style="width:60%;">
+                    <form action="" method="POST">
+                    <input type="text" name="search" placeholder="Arama Yapın" class="search"><button>Ara</button>
+                    </div>
+                    </form>
+                    </center>
+                    <style>
+                        h2{
+                            font-family: 'Rajdhani', sans-serif;
+                            color:black;
+                            font-size:50px;
+                        }
+                        .search{
+                            padding-left:10px;
+                            
+                            width:80%;
+                            
+                        }
+                        input[type="text"].search::-webkit-input-placeholder {
+                            color: black;
+                            font-family: 'Rajdhani', sans-serif;
+
+                        }
+                        button{
+                            font-family: 'Rajdhani', sans-serif;
+                            border:1px solid #000;
+                            padding:3px;
+                            background:none;
+                            border-radius:3px;
+                            width:10%;
+                            padding-bottom:1px;
+                            border-left:0px;
+
+                        }
+                    </style>
+
+
+                </body>
+                </html>"""
+
+    def rsorthingPOST(search,data):
+        output = """
+            <p id="result">Vikipedi Sonuçları</p>
+            <div id="wiki" style="width:60%;">
+
+        """
+        for w in data["wikipedia"]:
+
+            snippetter = f"""
+            <details>
+              <summary>{w['title']}</summary>
+              <p style="margin-left:5px;font-size:15px">{w['snippet']}...</p><br>
+              <i style="color:#2d2d2d">Kelime sayısı:{w['wordcount']}</i><br>
+              <a href="/wikipediaopener/{w['pageid']}">Vikipedi'de Oku</a>
+            </details>
+            """
+            output = output +str(snippetter)+"<br>"
+        output = output+"</div>"
+
+
+        output = output+"""
+        <p class="google"><a style="color:#4285F4;">G</a><a style="color:#EA4335;">o</a><a style="color:#FBBC05;">o</a><a style="color:#4285F4;">g</a><a style="color:#34A853;">l</a><a style="color:#FBBC05">e</a></p>
+            <div id="wiki" style="width:60%;">"""
+        for g in data["google"]:
+            try:
+                image = f"""<img width="100"  loading="lazy" src="{g["pagemap"]["metatags"][0]["og:image"]}"/> """
+            except Exception as e:
+                image = f""
+            try:
+                themecolor = f"""{g["pagemap"]["metatags"][0]["theme-color"]}"""
+            except:
+                themecolor = ""
+            thestring = f"""
+            <p><a href="{g['htmlFormattedUrl']}">{g['htmlTitle']}</a><br>
+            <a style="color:green;"href="{g['htmlFormattedUrl']}">{g['displayLink']}</a><br>
+            {image}
+            <a style="color:{themecolor}">Hello</a>
+            </p><br>
+
+            """
+            output = output+thestring
+        output = output+"</div>"
+        
+
+
+
+        return """<!DOCTYPE html>
+                <html lang="tr">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>K7 - RSOR</title>
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                    <link
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                      rel="stylesheet"
+                    />
+                    <!-- Google Fonts -->
+                    <link
+                      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                      rel="stylesheet"
+                    />
+                    <!-- MDB -->
+                    <link
+                      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                      rel="stylesheet"
+                    />
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;700&display=swap" rel="stylesheet">
+                </head>
+                <body>
+
+                    <br>
+
+                    <h2>RSOR</h2>
+                    <div style="width:70%;">
+                    <form action="" method="POST">
+                    <input type="text" name="search" placeholder="Arama Yapın" class="search" value='"""+search+"""'><button>Ara</button>
+                    </div>
+                    </form>
+                    """+output+"""
+
+                    <style>
+                        h2{
+                            font-family: 'Rajdhani', sans-serif;
+                            color:black;
+                            font-weight:300;
+                            font-size:30px;
+                            margin-left:30px;
+                        }
+                        .search{
+                            padding-left:10px;
+                            margin-left:30px;
+                            width:70%;
+                            
+                        }
+                        input[type="text"].search::-webkit-input-placeholder {
+                            color: black;
+                            font-family: 'Rajdhani', sans-serif;
+
+                        }
+                        button{
+                            font-family: 'Rajdhani', sans-serif;
+                            border:1px solid #000;
+                            padding:3px;
+                            background:none;
+                            border-radius:3px;
+                            width:10%;
+                            padding-bottom:1px;
+                            border-left:0px;
+
+                        }
+                        #result{
+                            font-family:  sans-serif;
+                            margin-left:30px;
+                            margin-top:50px;
+                            font-weight:bold;
+                            color:black;
+                        }
+                        #wiki{
+                        color:black;
+                        margin-left:30px;
+                        }
+                        .google{
+                            font-family: 'Rajdhani', sans-serif;
+                            color:black;
+                            font-weight:700;
+                            margin:30px;
+                            font-size:40px
+                        }
+                    </style>
+
+
+                </body>
+                </html>"""
+            

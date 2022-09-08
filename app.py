@@ -1,3 +1,4 @@
+#Copyright (c) 2022 Efe Akaröz
 from concurrent.futures import thread
 from select import select
 from flask import redirect, request, abort, make_response, Flask,render_template
@@ -14,7 +15,8 @@ import pyrebase
 from credentials import firebase_credentials
 import requests
 from sorterAPI import Sorter
-
+from dictionary_globalK7.dictk7 import DictK7
+from RSOR_K7.rsor import RSOR
 
 
 app = Flask(__name__)
@@ -23,7 +25,7 @@ k7app = db("K7")
 firebasevar = firebase_credentials()
 mydb = firebasevar.db
 databaseURL = firebasevar.databaseurl
-
+threelangDict = DictK7()
 key = b'D71kHIq7Wsyrjd30avvyzrS7BTT74lAXBB5y6mllnsQ='
 fernet = Fernet(key)
 
@@ -417,8 +419,42 @@ def explorePage():
 
 
 	return render_template("explore.html",data=mydata)
+@app.route("/rsor",methods=["POST","GET"])
+def rsorroute():
+	stringstuff = ["I","Z","K","R","P","A","O","U","Y","N"]
+	session = f"{random.choice(stringstuff)}{random.choice(stringstuff)}{random.choice(stringstuff)}{random.randint(1,2345345546)}"
+
+	if request.method == "POST":
+		q = request.form.get("search")
+		qnew = f"{q}"
+		qnew = qnew.lower()
+		qnew.replace("ö","o")
+		qnew.replace("ğ","g")
+		qnew.replace("ü","u")
+		qnew.replace("ı","i")
+		qnew.replace("ç","c")
 
 
+
+
+		os.system(f"""RSOR_K7/wikipedia  "{q}" {session} """)
+		os.system(f"""RSOR_K7/duckie  "{q}" {session} """)
+		os.system(f"""RSOR_K7/googler  "{q}" {session} """)
+		jsontoreturn = json.loads(open(session+".json","r").read())
+		os.system(f"rm {session}.json")
+
+
+		return templates.Templates.rsorthingPOST(q,jsontoreturn)
+	return templates.Templates.rsorthing()
+@app.route("/wikipediaopener/<pageid>")
+def wikipediaredirect(pageid):
+	try:
+		a = int(pageid)
+		page = json.loads(requests.get("https://tr.wikipedia.org/w/api.php?action=query&prop=info&pageids={}&inprop=url&format=json".format(pageid)).content)
+		return redirect(page["query"]["pages"][pageid]["fullurl"])
+	except Exception as e:
+		return abort(403)
+	
 
 app.run(debug=True,port=3000)
 

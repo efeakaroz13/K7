@@ -8,8 +8,9 @@ class RSOR:
 	def __init__(self):
 		self.session = f"{random.choice(stringstuff)}{random.choice(stringstuff)}{random.choice(stringstuff)}{random.randint(1,2345345546)}"
 
-	def search(self,query):
-
+	def search(self,query,folder=""):
+		if folder != "":
+			folder = folder+"/"
 		os.system(f"""./wikipedia  "{query}" {self.session} """)
 		os.system(f"""./duckie  "{query}" {self.session} """)
 		os.system(f"""./googler  "{query}" {self.session} """)
