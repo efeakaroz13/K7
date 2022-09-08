@@ -427,17 +427,13 @@ def rsorroute():
 	if request.method == "POST":
 		q = request.form.get("search")
 		qnew = f"{q}"
-		qnew = qnew.lower()
-		qnew.replace("ö","o")
-		qnew.replace("ğ","g")
-		qnew.replace("ü","u")
-		qnew.replace("ı","i")
-		qnew.replace("ç","c")
+		
+		qnew = qnew.replace("ö","o").replace("ğ","g").replace("ü","u").replace("ı","i").replace("ç","c").replace("Ö","O").replace("Ğ","G").replace("Ü","U").replace("İ","I").replace("Ç","C")
 
 
 
 
-		os.system(f"""RSOR_K7/wikipedia  "{q}" {session} """)
+		os.system(f"""RSOR_K7/wikipedia  "{qnew}" {session} """)
 		os.system(f"""RSOR_K7/duckie  "{q}" {session} """)
 		os.system(f"""RSOR_K7/googler  "{q}" {session} """)
 		jsontoreturn = json.loads(open(session+".json","r").read())

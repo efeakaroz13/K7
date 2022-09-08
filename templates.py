@@ -1183,11 +1183,17 @@ class Templates:
                 </html>"""
 
     def rsorthingPOST(search,data):
-        output = """
-            <p id="result">Vikipedi Sonuçları</p>
-            <div id="wiki" style="width:60%;">
+        if len(data["wikipedia"]) >0:
+            output = """
+                <details>
+                <summary id="result">Vikipedi Sonuçları</summary>
+                <div id="wiki" style="width:60%;">
 
-        """
+            """
+        else:
+            output = ""
+
+
         for w in data["wikipedia"]:
 
             snippetter = f"""
@@ -1199,26 +1205,39 @@ class Templates:
             </details>
             """
             output = output +str(snippetter)+"<br>"
-        output = output+"</div>"
-
+        output = output+"</div></details>"
+        #DUCKDUCKGO
+        
+        output = output+str(data["duckduckgo"])
 
         output = output+"""
         <p class="google"><a style="color:#4285F4;">G</a><a style="color:#EA4335;">o</a><a style="color:#FBBC05;">o</a><a style="color:#4285F4;">g</a><a style="color:#34A853;">l</a><a style="color:#FBBC05">e</a></p>
             <div id="wiki" style="width:60%;">"""
         for g in data["google"]:
             try:
-                image = f"""<img width="100"  loading="lazy" src="{g["pagemap"]["metatags"][0]["og:image"]}"/> """
+                image = f"""<img width="100"  loading="lazy" src="{g["pagemap"]["cse_image"][0]["src"]}"/> """
             except Exception as e:
                 image = f""
             try:
                 themecolor = f"""{g["pagemap"]["metatags"][0]["theme-color"]}"""
             except:
                 themecolor = ""
+
+
+
+            try:
+                rating = f"""<i>Puan:{g["pagemap"]["aggregaterating"][0]["ratingvalue"]}({g["pagemap"]["aggregaterating"][0]["ratingcount"]})</i><br>"""
+
+            except:
+                rating = ""
+
             thestring = f"""
             <p><a href="{g['htmlFormattedUrl']}">{g['htmlTitle']}</a><br>
             <a style="color:green;"href="{g['htmlFormattedUrl']}">{g['displayLink']}</a><br>
+            {rating}
+            <i style="color:grey;font-size:13px;">{g["htmlSnippet"]}</i><br>
             {image}
-            <a style="color:{themecolor}">Hello</a>
+            
             </p><br>
 
             """
@@ -1323,6 +1342,9 @@ class Templates:
                             font-weight:700;
                             margin:30px;
                             font-size:40px
+                        }
+                        .duckduck{
+                        color:orange;
                         }
                     </style>
 
