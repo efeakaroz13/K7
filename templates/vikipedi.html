@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {{headstuff |safe}}
+</head>
+<body>
+    
+    {% if resulting == True %}
+    <br>
+
+    <form action="" method="POST" style="margin-left:20px;">
+                <a style="color:black;font-size:20px;margin-right:10px;"><i class="fa-brands fa-wikipedia-w"></i></a><input id="searchInput" placeholder="Vikipedi'de arama yap..." name="search" type="search" size="30" autofocus="autofocus" accesskey="F" dir="auto" autocomplete="off"  value="{{query}}"><button style="color:white;background-color:#1b41fc;"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form><br>
+    <style>
+
+
+        body{
+            color:black;
+            padding:30px;
+        }
+    </style>
+    {{output|safe}}
+    {% else %}
+    <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7</p>
+    <br><br>
+    <center>
+            <br>
+            <h2 style="color:black"><i class="fa-brands fa-wikipedia-w"></i></h2>
+            <form action="" method="POST">
+                <input id="searchInput" placeholder="Vikipedi'de arama yap..." name="search" type="search" size="30" autofocus="autofocus" accesskey="F" dir="auto" autocomplete="off" ><button style="color:white;background-color:#1b41fc;"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+    </center>
+    <center>
+        
+    </center>
+    <i style="position:fixed;bottom:5px;font-size:15px;margin:10px;" ><a style="font-family: 'Rajdhani', sans-serif;">RSOR</a> by efeakaroz13</i>
+    {% endif %}
+
+
+</body>
+</html>

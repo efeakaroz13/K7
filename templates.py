@@ -788,37 +788,47 @@ class Templates:
                   href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
                   rel="stylesheet"
                 />
+                <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+                <script src="/static/iframeEditor.js"></script>
             </head>
             <body>
-                <script src="/static/article.js"></script>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
-                <br><br>
-                <br>
-                <center>
-                <button class="btn btn-outline-dark"style="position:fixed;right:-20px;"><i class="fas fa-search" style="margin-right:8px"></i></button><br><br>
-                <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-10px"><i class="fa-solid fa-book-atlas" style="margin-right:8px;"></i></button><br><br>
-                <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505"><a style="margin-right:5px;">tr</a></button>
-                <form action="" method="POST">
-                    <div class='titlething' >
-                        """+title+"""
-                        """+visibility+"""
-                        """+credit+"""
-                        <br><br>
-                        <input type='text' id="fontfamily" style='display:none;' name='fontfamily'>
-                    </div>
+                <div id="iframesearch" style="display:none;">
+                    <div style="width:100%;height:130vh;background-color:#151519;">
+                    <button onclick="openEngine()" style="background-color:red;color:white;border:1px solid #fff;margin:10px;border-radius:50%;width:20px;height:20px;position:absolute;right:20px;top:20px;"></button>
 
-                    <div >
-                    """+article+"""
+                    <center><iframe src="https://searx.thegpm.org/" id="searx"style="width:97%;height:98vh;border:1px solid#000;"></iframe></center>
                     </div>
+                </div>
+                <div id="everystuff" style="display:">
+
+                    <script src="/static/article.js"></script>
+                    <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
+                    <br><br>
                     <br>
-                    <button type="submit">Kaydet</button><br><br>
-                </form>
-                    <button onclick="setfont('verdana')" style="font-family:verdana">Verdana</button>
-                    <button onclick="setfont('monospace')" style="font-family:monospace">Monospace</button>
-                    <button onclick="setfont('default')">Default</button>
-                    <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
-                </center>
-                <div id="iframesearch">
+                    <center>
+                    <button class="btn btn-outline-dark"style="position:fixed;right:-20px;" onclick="openEngine()"><i class="fas fa-search" style="margin-right:8px"></i></button><br><br>
+                    <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-10px"><i class="fa-solid fa-book-atlas" style="margin-right:8px;"></i></button><br><br>
+                    <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505"><a style="margin-right:5px;">tr</a></button>
+                    <form action="" method="POST">
+                        <div class='titlething' >
+                            """+title+"""
+                            """+visibility+"""
+                            """+credit+"""
+                            <br><br>
+                            <input type='text' id="fontfamily" style='display:none;' name='fontfamily'>
+                        </div>
+
+                        <div >
+                        """+article+"""
+                        </div>
+                        <br>
+                        <button type="submit">Kaydet</button><br><br>
+                    </form>
+                        <button onclick="setfont('verdana')" style="font-family:verdana">Verdana</button>
+                        <button onclick="setfont('monospace')" style="font-family:monospace">Monospace</button>
+                        <button onclick="setfont('default')">Default</button>
+                        <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
+                    </center>
                 </div>
                     
             </body>
@@ -1206,9 +1216,7 @@ class Templates:
             """
             output = output +str(snippetter)+"<br>"
         output = output+"</div></details>"
-        #DUCKDUCKGO
-        
-        output = output+str(data["duckduckgo"])
+
 
         output = output+"""
         <p class="google"><a style="color:#4285F4;">G</a><a style="color:#EA4335;">o</a><a style="color:#FBBC05;">o</a><a style="color:#4285F4;">g</a><a style="color:#34A853;">l</a><a style="color:#FBBC05">e</a></p>

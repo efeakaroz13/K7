@@ -450,7 +450,51 @@ def wikipediaredirect(pageid):
 		return redirect(page["query"]["pages"][pageid]["fullurl"])
 	except Exception as e:
 		return abort(403)
+
+@app.route("/wikipedia_data",methods=["POST","GET"])
+def wikidata():
+	q = request.args.get("q")
+	head="""<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Vikipedi Hızlı Arama - RSOR</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">"""
+	if request.method == "POST":
+		search = request.form.get("search")
+		return redirect(f"/wikipedia_data?q={search}")
+	if q!=None:
+		q = q.replace("ö","o").replace("ğ","g").replace("ü","u").replace("ı","i").replace("ç","c").replace("Ö","O").replace("Ğ","G").replace("Ü","U").replace("İ","I").replace("Ç","C")
+		stringstuff = ["I","Z","K","R","P","A","O","U","Y","N"]
+		session = f"{random.choice(stringstuff)}{random.choice(stringstuff)}{random.choice(stringstuff)}{random.randint(1,2345345546)}"
+
+		os.system(f"""RSOR_K7/wikipedia "{q}" {session} """)
+		outData = json.loads(open("{}.json".format(session),"r").read())
+		output=""""""
+		os.system(f"rm {session}.json")
+		for w in outData["wikipedia"]:
+			if outData["wikipedia"].index(w) == 0:
+				snippetter = f"""
+	            
+	              <h2>{w['title']}</h2>
+	              <p style="margin-left:5px;font-size:15px">{w['snippet']}...</p><br>
+	              <i style="color:#2d2d2d">Kelime sayısı:{w['wordcount']}</i><br>
+	              <a href="/wikipediaopener/{w['pageid']}">Vikipedi'de Oku</a>
+	            <br>
+	            """
+				output = output +str(snippetter)+"<br>"
+				continue
+			snippetter = f"""
+            <details>
+              <summary>{w['title']}</summary>
+              <p style="margin-left:5px;font-size:15px">{w['snippet']}...</p><br>
+              <i style="color:#2d2d2d">Kelime sayısı:{w['wordcount']}</i><br>
+              <a href="/wikipediaopener/{w['pageid']}">Vikipedi'de Oku</a>
+            </details>
+            """
+			output = output +str(snippetter)+"<br>"
+
+		return render_template("vikipedi.html",resulting=True,data=outData,headstuff=head,query=q,output=output)
+	else:
+		pass
+
 	
+	return render_template("vikipedi.html",headstuff=head)
 
 app.run(debug=True,port=3000)
 
