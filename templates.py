@@ -799,36 +799,44 @@ class Templates:
                     <center><iframe src="https://searx.thegpm.org/" id="searx"style="width:97%;height:98vh;border:1px solid#000;"></iframe></center>
                     </div>
                 </div>
-                <div id="everystuff" style="display:">
+                <div id="wikiframe" style="display:none;position:absolute;">
+                    <button style="position:fixed;top:10px;right:10px;font-family:verdana;font-size:30px;background:none;border:0px;" onclick="OpenWikipedia()">-</button>
+                    <iframe src="/wikipedia_data" id="iframerwikipedia" style="width:100%;"></iframe>
+                </div>
+                <div id="everystuff" style="display:;">
 
                     <script src="/static/article.js"></script>
                     <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
                     <br><br>
                     <br>
-                    <center>
-                    <button class="btn btn-outline-dark"style="position:fixed;right:-20px;" onclick="openEngine()"><i class="fas fa-search" style="margin-right:8px"></i></button><br><br>
-                    <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-10px"><i class="fa-solid fa-book-atlas" style="margin-right:8px;"></i></button><br><br>
-                    <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505"><a style="margin-right:5px;">tr</a></button>
-                    <form action="" method="POST">
-                        <div class='titlething' >
-                            """+title+"""
-                            """+visibility+"""
-                            """+credit+"""
-                            <br><br>
-                            <input type='text' id="fontfamily" style='display:none;' name='fontfamily'>
-                        </div>
+                    <div >
+                        <center>
+                        <button class="btn btn-outline-dark"style="position:fixed;right:-20px;" onclick="openEngine()"><i class="fas fa-search" style="margin-right:8px"></i></button><br><br>
+                        <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-10px"><i class="fa-solid fa-book-atlas" style="margin-right:8px;"></i></button><br><br>
+                        <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505"><a style="margin-right:5px;">tr</a></button><br><br>
+                        <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-20px;" onclick="OpenWikipedia()"><i class="fa-brands fa-wikipedia-w" style="margin-right:8px"></i></button><br><br>
+                        
+                        <form action="" method="POST">
+                            <div class='titlething' >
+                                """+title+"""
+                                """+visibility+"""
+                                """+credit+"""
+                                <br><br>
+                                <input type='text' id="fontfamily" style='display:none;' name='fontfamily'>
+                            </div>
 
-                        <div >
-                        """+article+"""
-                        </div>
-                        <br>
-                        <button type="submit">Kaydet</button><br><br>
-                    </form>
-                        <button onclick="setfont('verdana')" style="font-family:verdana">Verdana</button>
-                        <button onclick="setfont('monospace')" style="font-family:monospace">Monospace</button>
-                        <button onclick="setfont('default')">Default</button>
-                        <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
-                    </center>
+                            <div >
+                            """+article+"""
+                            </div>
+                            <br>
+                            <button type="submit">Kaydet</button><br><br>
+                        </form>
+                            <button onclick="setfont('verdana')" style="font-family:verdana">Verdana</button>
+                            <button onclick="setfont('monospace')" style="font-family:monospace">Monospace</button>
+                            <button onclick="setfont('default')">Default</button>
+                            <button onclick="setfont('Edu NSW ACT Foundation')" style="font-family: 'Edu NSW ACT Foundation', cursive;">Edu NSW ACT Foundation</button>
+                        </center>
+                    </div>
                 </div>
                     
             </body>
