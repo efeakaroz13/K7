@@ -789,9 +789,18 @@ class Templates:
                   rel="stylesheet"
                 />
                 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+                <link rel="stylesheet" src="/static/articlestylerstuff.css">
+                
+                <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
                 <script src="/static/iframeEditor.js"></script>
+                
             </head>
             <body>
+
+                <div id="wikiframe" style="display:none;position:absolute;">
+                    <button style="position:fixed;top:10px;right:10px;font-family:verdana;font-size:30px;background:none;border:0px;" onclick="OpenWikipedia()">-</button>
+                    <iframe src="/wikipedia_data" id="iframerwikipedia" style="width:100%;"></iframe>
+                </div>
                 <div id="iframesearch" style="display:none;">
                     <div style="width:100%;height:130vh;background-color:#151519;">
                     <button onclick="openEngine()" style="background-color:red;color:white;border:1px solid #fff;margin:10px;border-radius:50%;width:20px;height:20px;position:absolute;right:20px;top:20px;"></button>
@@ -799,21 +808,97 @@ class Templates:
                     <center><iframe src="https://searx.thegpm.org/" id="searx"style="width:97%;height:98vh;border:1px solid#000;"></iframe></center>
                     </div>
                 </div>
-                <div id="wikiframe" style="display:none;position:absolute;">
-                    <button style="position:fixed;top:10px;right:10px;font-family:verdana;font-size:30px;background:none;border:0px;" onclick="OpenWikipedia()">-</button>
-                    <iframe src="/wikipedia_data" id="iframerwikipedia" style="width:100%;"></iframe>
-                </div>
+                <script src="/static/sozluk.js" ></script>
+                <style>
+                .desktop{
+                    position:absolute;
+                    right:0px;
+                    top:120px;
+                    width:50vh;
+                    height:55vh;
+                    border:1px solid #000;
+
+                }
+                #trdict{
+                    border:1px solid #000;
+                    width:70%;
+                    position:fixed;
+                    top:150px;
+                    margin-bottom:100px;
+                    right:15%;
+                    left:15%;
+                    padding-top:10px;
+                    padding-bottom:10px;
+                    border-radius:5px;
+                    background:#fff;
+                    color:black;
+                    font-family:sans-serif;
+
+                }
+                #results{
+                    text-align:left;
+
+                }
+                li{margin-top:6px;}
+                .desktop2{
+                    width:100%;
+                    height:49vh;
+                }
+
+
+                #close{
+                    color:black;
+                    background:none;
+                    border:0px;
+                    font-family:sans-serif;
+
+                    position:relative;
+                    left:10px;
+                    transition:0.5s;
+                    border-radius:50%;
+                    width:30px;
+                    height:30px;
+                }
+                #close:hover{
+                    color:white;
+                    background:black;
+                    border:0px;
+                    font-family:sans-serif;
+
+                    position:relative;
+                    left:10px;
+                    transition:0.5s;
+                }
+
+
+
+
+
+
+                </style>
                 <div id="everystuff" style="display:;">
 
                     <script src="/static/article.js"></script>
                     <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
                     <br><br>
+                    
+                        <div id="trdict">
+
+                            <button id='close'>x</button><br>
+                            <center>
+                            <h2>TDK Sözlük</h2><br>
+                            <input id="search" type="text" placeholder="Kelime girin..." autocomplete="off"><button onclick="searchDOM()">Ara</button><br>
+                            </center>
+                            <ul id="results">
+                            </ul>
+                        </div>
+                     
                     <br>
                     <div >
                         <center>
                         <button class="btn btn-outline-dark"style="position:fixed;right:-20px;" onclick="openEngine()"><i class="fas fa-search" style="margin-right:8px"></i></button><br><br>
                         <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-10px"><i class="fa-solid fa-book-atlas" style="margin-right:8px;"></i></button><br><br>
-                        <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505"><a style="margin-right:5px;">tr</a></button><br><br>
+                        <button class="btn btn-danger"style="position:fixed;right:-20px;margin-top:-20px;background-color:#ff0505" onclick="SOZLUK()"><a style="margin-right:5px;">tr</a></button><br><br>
                         <button class="btn btn-outline-dark"style="position:fixed;right:-20px;margin-top:-20px;" onclick="OpenWikipedia()"><i class="fa-brands fa-wikipedia-w" style="margin-right:8px"></i></button><br><br>
                         
                         <form action="" method="POST">
