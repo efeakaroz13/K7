@@ -882,9 +882,9 @@ class Templates:
                     <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
                     <br><br>
                     
-                        <div id="trdict">
+                        <div id="trdict" style="display:none;">
 
-                            <button id='close'>x</button><br>
+                            <button id='close' onclick="SOZLUK()">x</button><br>
                             <center>
                             <h2>TDK Sözlük</h2><br>
                             <input id="search" type="text" placeholder="Kelime girin..." autocomplete="off"><button onclick="searchDOM()">Ara</button><br>
