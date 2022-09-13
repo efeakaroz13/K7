@@ -496,6 +496,18 @@ def wikidata():
 	
 	return render_template("vikipedi.html",headstuff=head)
 
+
+@app.route("/global_dict")
+def globaldictstufff():
+	q= request.args.get("q")
+	lang = request.args.get("lang")
+	stringstuff = ["I","Z","K","R","P","A","O","U","Y","N"]
+	session = f"{random.choice(stringstuff)}{random.choice(stringstuff)}{random.choice(stringstuff)}{random.randint(1,2345345546)}"
+	os.system(f"dictionary_globalK7/k7dictYandex {q} {session} {lang}")
+	myjsonthingi = json.loads(open(f"{session}.json","r"))
+	os.system("rm {session}.json")
+	return myjsonthingi
+
 app.run(debug=True,port=3000)
 
 
