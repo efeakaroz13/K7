@@ -3,6 +3,8 @@
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <iomanip>
+
 using json = nlohmann::json;
 //compile g++ -Wall -std=c++11 yandexAPI.cpp  -l curl
 using namespace std;
@@ -74,7 +76,8 @@ int main(int argc, char *argv[]){
 			    	json yandexout = json::parse(*httpData.get());
 			    	json results= yandexout["def"];
 			    	if(results.size()>0){
-			    		for (int i=0; i<results.size();i++)
+					
+			    		for (size_t i=0; i<results.size();i++)
 			    		{	
 			    			output["yandexdictionary"].push_back(results[i]);
 			    			cout<<results[i]["tr"][0];

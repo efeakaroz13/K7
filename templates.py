@@ -670,7 +670,7 @@ class Templates:
                 <meta charset="UTF-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>K7 - Makale Oluştur</title>
+                <title>K7</title>
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
@@ -927,6 +927,60 @@ class Templates:
             </body>
             </html>
         """
+    def makearticle_visible(articledata):
+        return f"""<!DOCTYPE html>
+                    <html lang="tr">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>K7 - Makale Oluştur</title>
+                        <link rel="preconnect" href="https://fonts.googleapis.com">
+                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                        <link rel="preconnect" href="https://fonts.googleapis.com">
+                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                        <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                        <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                        <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                        <link rel="preconnect" href="https://fonts.googleapis.com">
+                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                        <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&display=swap" rel="stylesheet">
+                        <link
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                          rel="stylesheet"
+                        />
+                        <!-- Google Fonts -->
+                        <link
+                          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                          rel="stylesheet"
+                        />
+                        <!-- MDB -->
+                        <link
+                          href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                          rel="stylesheet"
+                        />
+                    </head>
+                    <body>
+                        <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Makale Doğrulama</p>
+                        <br><br>
+                        <div style="color:black">
+                        <center>
+                            <h2>{articledata['title']}</h2>
+                            <p>{articledata['article']}</p>
+                            <form action="" method="POST">
+                                <select name="approved" class="form-control" style="width:60%">
+                                    <option value="true">Onayla</option>
+                                    <option value="false">Reddet</option>
+                                </select>
+                                <button class="btn btn-primary">Tamamla</button>
+                            </form>
+                        </center>
+                        </div>
+
+
+                    </body>
+                    </html>"""
 
     def profiler(userdata,lastarticle,profileofmine,outlist):
 
@@ -1453,3 +1507,4 @@ class Templates:
                 </body>
                 </html>"""
             
+
