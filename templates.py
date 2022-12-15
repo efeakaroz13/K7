@@ -1,7 +1,16 @@
 import time
+from flask import abort
+
+
 class Templates:
+    def articleprofiler(articles=[], userdata=None):
+        if userdata == None:
+            return abort(404)
+        else:
+            return userdata
+
     def return_index_tr():
-        return"""
+        return """
 
             <!DOCTYPE html>
             <html lang="tr">
@@ -10,6 +19,7 @@ class Templates:
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>K7</title>
+                <meta name="yandex-verification" content="ebb5b88813a54c1f" />
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
@@ -69,9 +79,8 @@ class Templates:
 
         """
 
-
     def return_login_tr():
-        return"""
+        return """
 
             <!DOCTYPE html>
             <html lang="tr">
@@ -127,9 +136,8 @@ class Templates:
 
         """
 
-
     def return_login_err_tr():
-        return"""
+        return """
 
             <!DOCTYPE html>
             <html lang="tr">
@@ -187,16 +195,29 @@ class Templates:
 
         """
 
-    def return_home_tr(username,articles):
+    def return_home_tr(username, articles):
         if len(articles) != 0:
             print(articles)
             articlescode = """
                 <ul class="list-group" style='width:70%;'>
             """
             for ar in articles:
-                articlescode=articlescode+"<li class='list-group-item' style='text-align:left;'><a href='/read/"+str(articles[articles.index(ar)]["data"]["articleid"])+"'>"+str(articles[articles.index(ar)]["data"]["title"])+"</a><a style='color:red;float:right'>"+str(articles[articles.index(ar)]["data"]["visibility"])+"</a><br><i style='color:black'>"+str(articles[articles.index(ar)]["data"]["article"])[:13]+"...</i><br><i>"+time.ctime(int(articles[articles.index(ar)]["data"]["lastsaved"]))+"</i></li>"
+                articlescode = (
+                    articlescode
+                    + "<li class='list-group-item' style='text-align:left;'><a href='/read/"
+                    + str(articles[articles.index(ar)]["data"]["articleid"])
+                    + "'>"
+                    + str(articles[articles.index(ar)]["data"]["title"])
+                    + "</a><a style='color:red;float:right'>"
+                    + str(articles[articles.index(ar)]["data"]["visibility"])
+                    + "</a><br><i style='color:black'>"
+                    + str(articles[articles.index(ar)]["data"]["article"])[:13]
+                    + "...</i><br><i>"
+                    + time.ctime(int(articles[articles.index(ar)]["data"]["lastsaved"]))
+                    + "</i></li>"
+                )
 
-            articlescode= articlescode+"</ul>"
+            articlescode = articlescode + "</ul>"
             print(articlescode)
         else:
             articlescode = """
@@ -204,7 +225,8 @@ class Templates:
                     <li class="list-group-item">Daha önce hiç makale yazmadınız...</li>
                 </ul>
             """
-        return"""
+        return (
+            """
 
             <!DOCTYPE html>
             <html lang="tr">
@@ -237,12 +259,18 @@ class Templates:
                 />
             </head>
             <body>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - """+username+"""<a style="font-size:10px;color:red;margin-left:10px;margin-bottom:4px" href="/logout">logout</a><a style="position:fixed;right:10px" href="/user/"""+username+""""><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a></p>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - """
+            + username
+            + """<a style="font-size:10px;color:red;margin-left:10px;margin-bottom:4px" href="/logout">logout</a><a style="position:fixed;right:10px" href="/user/"""
+            + username
+            + """"><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a></p>
                 <br><br>
                 <br>
                 <center>
                     <br>
-                    """+articlescode+"""<br>
+                    """
+            + articlescode
+            + """<br>
                     <button onclick="window.location.assign('/writearticle')">Makale Yaz</button><button onclick="window.location.assign('/explore')">Keşfet <i class="fa-solid fa-compass"></i></button>
                 </center>
                 <style>
@@ -271,9 +299,10 @@ class Templates:
             </html>
 
         """
+        )
 
     def return_register_tr():
-        return"""
+        return """
 
 
             <!DOCTYPE html>
@@ -336,8 +365,9 @@ class Templates:
 
 
         """
+
     def return_register_unknown_tr():
-        return"""
+        return """
 
 
             <!DOCTYPE html>
@@ -401,8 +431,10 @@ class Templates:
 
 
         """
+
     def register_err_tr(out):
-        return"""
+        return (
+            """
 
 
             <!DOCTYPE html>
@@ -454,7 +486,9 @@ class Templates:
                             <input type="text" name="city"autocomplete="off" placeholder="Yaşadığınız şehir" class="form-control" style="width:70%;" required><br>
                             <textarea  name="talents"placeholder="Yetenekleriniz(hangi konu ile alakalı olduğu size kalmış)" class="form-control" required></textarea><br>
                             <input type="password" name="password" autocomplete="off" placeholder="Şifreniz..." class="form-control" style="width:70%;" required><br>
-                            <p>"""+out+"""</p>
+                            <p>"""
+            + out
+            + """</p>
                             <button class="btn btn-primary">Onayla</button>
                         </form>
                     </div>
@@ -470,9 +504,11 @@ class Templates:
 
 
         """
+        )
 
     def return_register_done_tr(username):
-        return"""
+        return (
+            """
 
 
             <!DOCTYPE html>
@@ -511,7 +547,9 @@ class Templates:
                 <br>
                 <center>
 
-                    <h2>K7'ye hoş geldin """+username+""" </h2>
+                    <h2>K7'ye hoş geldin """
+            + username
+            + """ </h2>
                     <p>Burada bilimsel yazınlarını paylaşabilir, insanlara bir şeyler katmaya çalışabilirsin.<a href="">K7 kurallar klavuzu</a>'nu başlamadan önce okumanı tavsiye ederiz!</p>
                 </center>
 
@@ -524,6 +562,7 @@ class Templates:
 
 
         """
+        )
 
     def notfound():
         return """
@@ -575,8 +614,9 @@ class Templates:
         """
 
     def writeart(username):
-        
-        return """
+
+        return (
+            """
             <!DOCTYPE html>
             <html lang="tr">
             <head>
@@ -611,7 +651,9 @@ class Templates:
                 />
             </head>
             <body>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Makale Oluştur <code>"""+username+"""</code></p>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Makale Oluştur <code>"""
+            + username
+            + """</code></p>
                 <br><br>
                 <br>
                 <script src="/static/article.js"></script>
@@ -635,35 +677,62 @@ class Templates:
             </body>
             </html>
 
-        """ 
+        """
+        )
 
-    def articlereadsingle(articledata,username=None,views=0):
+    def articlereadsingle(articledata, username=None, views=0):
         print(articledata["data1"].keys())
         if username == None:
-            username =""
+            username = ""
             profilebar = ""
         else:
-            profilebar = """
-            <a style="position:fixed;right:10px" href="/user/"""+username+""""><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a>
+            profilebar = (
+                """
+            <a style="position:fixed;right:10px" href="/user/"""
+                + username
+                + """"><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a>
             """
+            )
         if articledata["edit"] == True:
-            title = """
-                <h2>"""+articledata['data1']['title']+"""<a style='margin-left:10px' href="?edit=BLYAD"><i class="fa-solid fa-pencil"></i></a></h2>
+            title = (
+                """
+                <h2>"""
+                + articledata["data1"]["title"]
+                + """<a style='margin-left:10px' href="?edit=BLYAD"><i class="fa-solid fa-pencil"></i></a></h2>
             """
-            if articledata['data1']['visibility'] == "public":
+            )
+            if articledata["data1"]["visibility"] == "public":
                 visibility = """<p>Herkese Açık <i class="fa-solid fa-eye"></i><p>"""
             else:
                 visibility = """<p>Gizli <i class="fa-solid fa-lock" ></i><p>"""
 
         else:
-            visibility=""
-            title = """
-                <h2>"""+articledata['data1']['title']+"""</h2>
+            visibility = ""
+            title = (
+                """
+                <h2>"""
+                + articledata["data1"]["title"]
+                + """</h2>
             """
-        credit = """<i><a style='color:red'>"""+articledata['data1']['username']+"""</a> Tarafından <a style='color:blue'>"""+time.ctime(articledata['data1']['lastsaved'])+"""</a> tarihinde kaydedildi</i>"""
+            )
+        credit = (
+            """<i><a style='color:red'>"""
+            + articledata["data1"]["username"]
+            + """</a> Tarafından <a style='color:blue'>"""
+            + time.ctime(articledata["data1"]["lastsaved"])
+            + """</a> tarihinde kaydedildi</i>"""
+        )
 
-        article = """<p style="color:black;font-family:"""+articledata['data1']['fontfamily']+";word-wrap: break-word; white-space: pre-wrap;"+"""">"""+articledata['data1']['article']+"""</p>"""
-        return """
+        article = (
+            """<p style="color:black;font-family:"""
+            + articledata["data1"]["fontfamily"]
+            + ";word-wrap: break-word; white-space: pre-wrap;"
+            + """">"""
+            + articledata["data1"]["article"]
+            + """</p>"""
+        )
+        return (
+            """
         <!DOCTYPE html>
             <html lang="tr">
             <head>
@@ -698,41 +767,64 @@ class Templates:
                 />
             </head>
             <body>
-                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Okuyucu <code>"""+username+"""</code>"""+profilebar+"""</p>
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Okuyucu <code>"""
+            + username
+            + """</code>"""
+            + profilebar
+            + """</p>
                 <br><br>
                 <br>
                 <center>
                 <div class='titlething' style="width:80%;text-align:left">
-                    """+title+"""
-                    <i style='font-size:10px'>"""+views+""" kere görüntülendi</i><br><br>
-                    """+visibility+"""
-                    """+credit+"""
+                    """
+            + title
+            + """
+                    <i style='font-size:10px'>"""
+            + views
+            + """ kere görüntülendi</i><br><br>
+                    """
+            + visibility
+            + """
+                    """
+            + credit
+            + """
                     <br><br>
                     
                 </div>
 
                     <div style="width:80%;text-align:left">
-                    """+article+"""
+                    """
+            + article
+            + """
                     </div>
                 </center>
                     
             </body>
             </html>
         """
+        )
 
-    def articleedit(articledata,username=None):
+    def articleedit(articledata, username=None):
         print(articledata["data1"].keys())
         if username == None:
-            username =""
+            username = ""
             profilebar = ""
         else:
-            profilebar = """
-            <a style="position:fixed;right:10px" href="/user/"""+username+""""><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a>
+            profilebar = (
+                """
+            <a style="position:fixed;right:10px" href="/user/"""
+                + username
+                + """"><img  src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvignette2.wikia.nocookie.net%2Fmafiagame%2Fimages%2F2%2F23%2FUnknown_Person.png%2Frevision%2Flatest%3Fcb%3D20151119092211&f=1&nofb=1" style="border-radius:50%;width:50px;border:1px solid #000;"></a>
             """
+            )
 
-        title = """
-            <input name='title' class='form-control' style='width:80%;' value='"""+articledata['data1']['title']+"""'/>
+        title = (
+            """
+            <input name='title' class='form-control' style='width:80%;' value='"""
+            + articledata["data1"]["title"]
+            + """'/>
         """
+        )
         selectorform1 = """<br>
             <select name="visibility" class='form-control'style='width:80%;'>
                 <option value="public">Herkese Açık</option>
@@ -747,15 +839,26 @@ class Templates:
             </select><br>
         """
 
-        if articledata['data1']['visibility'] == "public":
+        if articledata["data1"]["visibility"] == "public":
             visibility = str(selectorform1)
         else:
             visibility = str(selectorform2)
-        
-        credit = """<i><a style='color:blue'>"""+time.ctime(articledata['data1']['lastsaved'])+"""</a> tarihinde kaydedildi</i>"""
 
-        article = """<textarea  name='article' class='form-control' id='article' style="width:80%;height:400px;color:black;font-family:"""+articledata['data1']['fontfamily']+""" ">"""+articledata['data1']['article']+"""</textarea>"""
-        return """
+        credit = (
+            """<i><a style='color:blue'>"""
+            + time.ctime(articledata["data1"]["lastsaved"])
+            + """</a> tarihinde kaydedildi</i>"""
+        )
+
+        article = (
+            """<textarea  name='article' class='form-control' id='article' style="width:80%;height:400px;color:black;font-family:"""
+            + articledata["data1"]["fontfamily"]
+            + """ ">"""
+            + articledata["data1"]["article"]
+            + """</textarea>"""
+        )
+        return (
+            """
         <!DOCTYPE html>
             <html lang="tr">
             <head>
@@ -879,7 +982,11 @@ class Templates:
                 <div id="everystuff" style="display:;">
 
                     <script src="/static/article.js"></script>
-                    <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""+username+"""</code>"""+profilebar+"""</p>
+                    <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7 - Düzenleyici <code>"""
+            + username
+            + """</code>"""
+            + profilebar
+            + """</p>
                     <br><br>
                     
                         <div id="trdict" style="display:none;">
@@ -903,15 +1010,23 @@ class Templates:
                         
                         <form action="" method="POST">
                             <div class='titlething' >
-                                """+title+"""
-                                """+visibility+"""
-                                """+credit+"""
+                                """
+            + title
+            + """
+                                """
+            + visibility
+            + """
+                                """
+            + credit
+            + """
                                 <br><br>
                                 <input type='text' id="fontfamily" style='display:none;' name='fontfamily'>
                             </div>
 
                             <div >
-                            """+article+"""
+                            """
+            + article
+            + """
                             </div>
                             <br>
                             <button type="submit">Kaydet</button><br><br>
@@ -927,6 +1042,8 @@ class Templates:
             </body>
             </html>
         """
+        )
+
     def makearticle_visible(articledata):
         return f"""<!DOCTYPE html>
                     <html lang="tr">
@@ -982,10 +1099,10 @@ class Templates:
                     </body>
                     </html>"""
 
-    def profiler(userdata,lastarticle,profileofmine,outlist):
+    def profiler(userdata, lastarticle, profileofmine, outlist):
 
-        if profileofmine == True :
-            codeinjector1card ="""
+        if profileofmine == True:
+            codeinjector1card = """
             
                 <a style='text-align:left;margin-left:20px;margin-bottom:20px'><i class="fa-solid fa-gear" style="background: linear-gradient(to right, #d2d5d6,#3d515e, #2f4451, #214052);-webkit-text-fill-color: transparent;-webkit-background-clip: text;"></i> Ayarlar</a><center><div style='margin-top:10px;width:100%;height:2px;border:1px solid #888688; '></div></center>
                 <br>
@@ -994,38 +1111,55 @@ class Templates:
             codeinjector2list = """
                             <ul class="list-group" style='width:80%;'>
                         """
-            if len(outlist) >1:
+            if len(outlist) > 1:
                 for ar in outlist:
-                    codeinjector2list = codeinjector2list + "<li class='list-group-item' style='text-align:left;'><a href='/read/" + str(
-                        outlist[outlist.index(ar)]["articleid"]) + "'>" + str(
-                        outlist[outlist.index(ar)]["title"]) + "</a><a style='color:red;float:right'>" + str(
-                        outlist[outlist.index(ar)]["visibility"]) + "</a><br><i style='color:black'>" + str(
-                        outlist[outlist.index(ar)]["article"])[:20] + "...</i><br><i>" + time.ctime(
-                        int(outlist[outlist.index(ar)]["lastsaved"])) + "</i></li>"
+                    codeinjector2list = (
+                        codeinjector2list
+                        + "<li class='list-group-item' style='text-align:left;'><a href='/read/"
+                        + str(outlist[outlist.index(ar)]["articleid"])
+                        + "'>"
+                        + str(outlist[outlist.index(ar)]["title"])
+                        + "</a><a style='color:red;float:right'>"
+                        + str(outlist[outlist.index(ar)]["visibility"])
+                        + "</a><br><i style='color:black'>"
+                        + str(outlist[outlist.index(ar)]["article"])[:20]
+                        + "...</i><br><i>"
+                        + time.ctime(int(outlist[outlist.index(ar)]["lastsaved"]))
+                        + "</i></li>"
+                    )
             else:
                 pass
             codeinjector2list = codeinjector2list + "</ul>"
 
         else:
-            codeinjector1card=""
+            codeinjector1card = ""
             codeinjector2list = """
             <ul class="list-group" style='width:80%;'>
             
             """
-            if len(outlist) >1:
+            if len(outlist) > 1:
                 for ar in outlist:
                     if outlist[outlist.index(ar)]["visibility"] == "public":
-                        codeinjector2list = codeinjector2list + "<li class='list-group-item' style='text-align:left;'><a href='/read/" + str(
-                            outlist[outlist.index(ar)]["articleid"]) + "'>" + str(
-                            outlist[outlist.index(ar)]["title"]) + "</a><a style='color:red;float:right'>" + str(
-                            outlist[outlist.index(ar)]["visibility"]) + "</a><br><i style='color:black'>" + str(
-                            outlist[outlist.index(ar)]["article"])[:20] + "...</i><br><i>" + time.ctime(
-                            int(outlist[outlist.index(ar)]["lastsaved"])) + "</i></li>"
+                        codeinjector2list = (
+                            codeinjector2list
+                            + "<li class='list-group-item' style='text-align:left;'><a href='/read/"
+                            + str(outlist[outlist.index(ar)]["articleid"])
+                            + "'>"
+                            + str(outlist[outlist.index(ar)]["title"])
+                            + "</a><a style='color:red;float:right'>"
+                            + str(outlist[outlist.index(ar)]["visibility"])
+                            + "</a><br><i style='color:black'>"
+                            + str(outlist[outlist.index(ar)]["article"])[:20]
+                            + "...</i><br><i>"
+                            + time.ctime(int(outlist[outlist.index(ar)]["lastsaved"]))
+                            + "</i></li>"
+                        )
             else:
                 pass
             codeinjector2list = codeinjector2list + "</ul>"
 
-        return """
+        return (
+            """
         <!DOCTYPE html>
             <html lang="tr">
             <head>
@@ -1066,28 +1200,40 @@ class Templates:
                 <center>
                 <div class="card" style="width:80%;text-align:left;">
                     <div class="card-body">
-                        <h5 class="card-title">"""+userdata["fullname"]+"""</h5>
-                        <i>"""+userdata["username"]+"""</i>
+                        <h5 class="card-title">"""
+            + userdata["fullname"]
+            + """</h5>
+                        <i>"""
+            + userdata["username"]
+            + """</i>
                         <p class="card-body">
-                            <p><i class="fa-solid fa-newspaper"  style="background: linear-gradient(to right, #d2d5d6,#3d515e, #2f4451, #214052);-webkit-text-fill-color: transparent;-webkit-background-clip: text;margin-right:10px"></i>Son düzenleme: """+lastarticle+"""</p>
-                            <p><i style="background: linear-gradient(to right, #f00821,#f10821, #f00834, #f00821);-webkit-text-fill-color: transparent;-webkit-background-clip: text;margin-right:10px" class="fa-solid fa-location-dot"></i>"""+userdata["city"]+"""</p>
+                            <p><i class="fa-solid fa-newspaper"  style="background: linear-gradient(to right, #d2d5d6,#3d515e, #2f4451, #214052);-webkit-text-fill-color: transparent;-webkit-background-clip: text;margin-right:10px"></i>Son düzenleme: """
+            + lastarticle
+            + """</p>
+                            <p><i style="background: linear-gradient(to right, #f00821,#f10821, #f00834, #f00821);-webkit-text-fill-color: transparent;-webkit-background-clip: text;margin-right:10px" class="fa-solid fa-location-dot"></i>"""
+            + userdata["city"]
+            + """</p>
                         </p>
                         <br>
-                        """+codeinjector1card+"""
+                        """
+            + codeinjector1card
+            + """
                     </div>
                 </div><br>
-                """+codeinjector2list+"""
+                """
+            + codeinjector2list
+            + """
                 </center>
                 
                     
             </body>
             </html>
         """
+        )
 
-    def changepassword(username_,error__):
+    def changepassword(username_, error__):
 
-
-        toreturn=  """<!DOCTYPE html>
+        toreturn = """<!DOCTYPE html>
             <html lang="tr">
             <head>
                 <meta charset="UTF-8">
@@ -1136,7 +1282,7 @@ class Templates:
                         </form>
                         <i style='color:red;font-size:10px;'>"""
 
-        secondpart="""</i>
+        secondpart = """</i>
                     </div>
                 
                 </div>
@@ -1146,7 +1292,7 @@ class Templates:
             </body>
             </html>"""
 
-        return toreturn+secondpart
+        return toreturn + secondpart
 
     def changepassword_err(username_, error__):
 
@@ -1209,10 +1355,10 @@ class Templates:
             </body>
             </html>"""
 
-        return toreturn +error__+ secondpart
+        return toreturn + error__ + secondpart
 
     def explore(data):
-         return """<!DOCTYPE html>
+        return """<!DOCTYPE html>
             <html lang="tr">
             <head>
                 <meta charset="UTF-8">
@@ -1256,9 +1402,8 @@ class Templates:
             </body>
             </html>"""
 
-
     def rsorthing():
-             return """<!DOCTYPE html>
+        return """<!DOCTYPE html>
                 <html lang="tr">
                 <head>
                     <meta charset="UTF-8">
@@ -1339,8 +1484,8 @@ class Templates:
                 </body>
                 </html>"""
 
-    def rsorthingPOST(search,data):
-        if len(data["wikipedia"]) >0:
+    def rsorthingPOST(search, data):
+        if len(data["wikipedia"]) > 0:
             output = """
                 <details>
                 <summary id="result">Vikipedi Sonuçları</summary>
@@ -1349,7 +1494,6 @@ class Templates:
             """
         else:
             output = ""
-
 
         for w in data["wikipedia"]:
 
@@ -1361,13 +1505,15 @@ class Templates:
               <a href="/wikipediaopener/{w['pageid']}">Vikipedi'de Oku</a>
             </details>
             """
-            output = output +str(snippetter)+"<br>"
-        output = output+"</div></details>"
+            output = output + str(snippetter) + "<br>"
+        output = output + "</div></details>"
 
-
-        output = output+"""
+        output = (
+            output
+            + """
         <p class="google"><a style="color:#4285F4;">G</a><a style="color:#EA4335;">o</a><a style="color:#FBBC05;">o</a><a style="color:#4285F4;">g</a><a style="color:#34A853;">l</a><a style="color:#FBBC05">e</a></p>
             <div id="wiki" style="width:60%;">"""
+        )
         for g in data["google"]:
             try:
                 image = f"""<img width="100"  loading="lazy" src="{g["pagemap"]["cse_image"][0]["src"]}"/> """
@@ -1377,8 +1523,6 @@ class Templates:
                 themecolor = f"""{g["pagemap"]["metatags"][0]["theme-color"]}"""
             except:
                 themecolor = ""
-
-
 
             try:
                 rating = f"""<i>Puan:{g["pagemap"]["aggregaterating"][0]["ratingvalue"]}({g["pagemap"]["aggregaterating"][0]["ratingcount"]})</i><br>"""
@@ -1396,13 +1540,11 @@ class Templates:
             </p><br>
 
             """
-            output = output+thestring
-        output = output+"</div>"
-        
+            output = output + thestring
+        output = output + "</div>"
 
-
-
-        return """<!DOCTYPE html>
+        return (
+            """<!DOCTYPE html>
                 <html lang="tr">
                 <head>
                     <meta charset="UTF-8">
@@ -1445,10 +1587,14 @@ class Templates:
                     <h2>RSOR</h2>
                     <div style="width:70%;">
                     <form action="" method="POST">
-                    <input type="text" name="search" placeholder="Arama Yapın" class="search" value='"""+search+"""'><button>Ara</button>
+                    <input type="text" name="search" placeholder="Arama Yapın" class="search" value='"""
+            + search
+            + """'><button>Ara</button>
                     </div>
                     </form>
-                    """+output+"""
+                    """
+            + output
+            + """
 
                     <style>
                         h2{
@@ -1506,5 +1652,4 @@ class Templates:
 
                 </body>
                 </html>"""
-            
-
+        )
