@@ -588,6 +588,18 @@ def check_existance():
     except:
         
         return redirect("https://efeakaroz.pythonanywhere.com/cracker?auth=False")
+
+
+
+from flask import send_from_directory
+
+@app.route("/robots.txt")
+def robotstxt():
+    return send_from_directory("static","robots.txt")
+
+@app.route('/sitemap.xml')
+def returnsitemap():
+    return send_from_directory('static','sitemap.xml')
 """
 app.run(debug=True,port=3000,host="0.0.0.0")
 """
