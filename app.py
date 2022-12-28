@@ -264,7 +264,10 @@ def articles(username):
                 textinfo = json.loads(
                     decrypt(open("static/articles/{}".format(ar)).read())
                 )
-                selecteds.insert(0, {"filename": ar, "data": textinfo})
+                if textinfo["visibility"] == "public":
+                    selecteds.insert(0, {"filename": ar, "data": textinfo})
+        
+        userdata["articles"] = selecteds 
         return templates.Templates.articleprofiler(selecteds, userdata)
     except Exception as e:
         return str(e)

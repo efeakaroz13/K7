@@ -5,9 +5,68 @@ from flask import abort
 class Templates:
     def articleprofiler(articles=[], userdata=None):
         if userdata == None:
-            return abort(404)
+            return """
+            
+                <script>
+                    window.location.assign('/404')
+                </script>
+            """
         else:
-            return userdata
+            return """
+
+                <!DOCTYPE html>
+                <html lang="tr">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width0device-width, initial-scale=1.0">
+                    <title> """+userdata['fullname']+""" - K7</title>
+                    <meta name="yandex-verification" content="ebb5b88813a54c1f" />
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+                    <link rel="preconnect" href="https://fonts.googleapis.com">
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Rubik:wght@500&family=Yellowtail&display=swap" rel="stylesheet">
+                    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+                    <link
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                    rel="stylesheet"
+                    />
+                <!-- Google Fonts -->
+                    <link
+                  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                  rel="stylesheet"
+                />
+                <!-- MDB -->
+                <link
+                  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+                  rel="stylesheet"
+                />
+
+                </head>
+                <body style="color:black">
+                <p style="color:black;margin:10px;font-size:20px;font-family: 'Rubik', sans-serif;" onclick="window.location.assign('/')">K7</p>
+                <br><br>
+                <center><div class="card" style="width:70%;">
+                    <center>
+                    <div class="card-body">
+                        <h5 class="card-title">"""+userdata["username"]+" - "+userdata["fullname"]+"""</h5>
+                        <p class="card-text">
+                            Yetenekleri:"""+userdata["talents"]+"""
+                        </p>
+                    </div>
+                    
+                    </center>
+                </div>
+                <br>
+                <h4> K7 üzerinden yaptığı yayımlar</h4>
+                </center>
+                </body>
+                </html>
+
+            """
 
     def return_index_tr():
         return """
