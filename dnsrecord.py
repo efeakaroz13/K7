@@ -1,7 +1,7 @@
 import json 
 import requests
 import random 
-from selenium import webdriver
+#from selenium import webdriver
 import time 
 import colorama
 import pickle
